@@ -125,7 +125,7 @@ public class Attribute {
 	
 	public boolean isKnotted() {
 		
-		if(this.knot == null) {
+		if(this.knot == null || this.dataRange != null) {
 			
 			return false;
 		}

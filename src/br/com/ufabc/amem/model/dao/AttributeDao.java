@@ -2,37 +2,17 @@ package br.com.ufabc.amem.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.model.Attribute;
-import br.com.ufabc.amem.model.Capsule;
-import br.com.ufabc.amem.model.Knot;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class AttributeDao {
-
-	// TODO this may have injection
-	public void historizeAttribute(Attribute attribute) throws ObjectAlreadyCreated, SQLException {
-
-		String schema         = attribute.getCapsule().getName();
-		String attributeTable = attribute.getTable();
-		String historyColumn  = attribute.getAnchor().getMnemonic() 
-							  + "_" + attribute.getMnemonic() + "_ValidFrom";
-
-		String sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
-				+ attribute.getTimeRange() + " not null)";
-
-		Connection conn = ConnectionPool.getInstance().getConnection();
-		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		ConnectionPool.getInstance().releaseConnection(conn);
-	}
 
 	public void createAttribute(Attribute attribute) throws SQLException {
 
@@ -93,99 +73,78 @@ public class AttributeDao {
 	}
 
 	public Attribute selectAttribute(Attribute attribute) throws SQLException {
+		
+		Table table           = new Table();
+		String schema         = attribute.getCapsule().getName();
+		String attributeTable = attribute.getTable();
+		
+		ArrayList<Column> columns = table.selectTable(schema, attributeTable);
+		
+		if(columns.isEmpty()) {
+			
+			attribute = null;
+			
+		} else {
 
-		String sql = "select * from ALL_TABLES where OWNER = UPPER(?) AND TABLE_NAME = UPPER(?)";
-		String schema = attribute.getCapsule().getName();
-		String table = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_"
-				+ attribute.getAnchor().getDescriptor() + "_" + attribute.getDescriptor();
+			String columnStaticName = attribute.getAnchor().getMnemonic() + "_" 
+					+ attribute.getMnemonic() + "_"
+					+ attribute.getAnchor().getDescriptor() + "_" 
+					+ attribute.getDescriptor();
+
+			for (int i = 0; i < columns.size(); i++) {
+				
+				if (columnStaticName.equalsIgnoreCase(columns.get(i).getName())) {
+					
+					attribute.setDataRange(columns.get(i).getDataType());;
+				}
+			}
+			
+			if(attribute.isKnotted()) {
+				
+				String identityColumn = attribute.getAnchor().getMnemonic() + "_ID";
+				
+				for (int i = 0; i < columns.size(); i++) {
+					
+					boolean isTheIdColumn   = identityColumn.equalsIgnoreCase(columns.get(i).getName());
+					boolean isTheTimeColumn = columnStaticName.equalsIgnoreCase(columns.get(i).getName());
+					
+					if (!isTheTimeColumn && !isTheIdColumn) {
+						
+						attribute.setDataRange(columns.get(i).getDataType());;
+					}
+				}
+			}
+
+			String historyColumn = attribute.getAnchor().getMnemonic() 
+								 + "_" + attribute.getMnemonic() + "_ValidFrom";
+			
+			for (int i = 0; i < columns.size(); i++) {
+				
+				if ((historyColumn).equalsIgnoreCase(columns.get(i).getName())) {
+					
+					attribute.setTimeRange(columns.get(i).getDataType());;
+				}
+			}   
+		}
+		
+		return attribute;
+	}
+	
+	//TODO this may have injection
+	//TODO wrong way to do it because de valid from must be part of pk
+	public void historizeAttribute(Attribute attribute) throws ObjectAlreadyCreated, SQLException {
+
+		String schema         = attribute.getCapsule().getName();
+		String attributeTable = attribute.getTable();
+		String historyColumn  = attribute.getAnchor().getMnemonic() 
+							  + "_" + attribute.getMnemonic() + "_ValidFrom";
+
+		String sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
+				+ attribute.getTimeRange() + " not null)";
 
 		Connection conn = ConnectionPool.getInstance().getConnection();
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.setString(1, schema);
-		preparedStatment.setString(2, table);
-		ResultSet resultSet = preparedStatment.executeQuery();
-
-		if (resultSet.next()) {
-
-			sql = "SELECT data_type, DATA_PRECISION from all_tab_columns where owner = UPPER(?) and table_name = UPPER(?) and column_name = UPPER(?)";
-
-			String column = table;
-
-			preparedStatment = conn.prepareStatement(sql);
-			preparedStatment.setString(1, schema);
-			preparedStatment.setString(2, table);
-			preparedStatment.setString(3, column);
-			resultSet = preparedStatment.executeQuery();
-
-			if (resultSet.next()) {
-
-				// static attribute
-				String dataType = resultSet.getString("DATA_TYPE");
-
-				// TODO set for diferent data types
-				if (!dataType.equalsIgnoreCase("VARCHAR2")) {
-
-					dataType += "(" + resultSet.getString("DATA_PRECISION") + ")";
-				}
-				attribute.setDataRange(dataType);
-				attribute.setKnot(null);
-
-			} else {
-
-				// knotted attribute
-				// TODO serach knot
-				sql = "SELECT c.r_owner, c_pk.table_name r_table_name" + "  FROM all_cons_columns a"
-						+ "  JOIN all_constraints c ON a.owner = c.owner"
-						+ "                        AND a.constraint_name = c.constraint_name"
-						+ "  JOIN all_constraints c_pk ON c.r_owner = c_pk.owner"
-						+ "                           AND c.r_constraint_name = c_pk.constraint_name"
-						+ " WHERE c.constraint_type = 'R'" + "   AND a.table_name = ?"
-						+ "   AND a.CONSTRAINT_NAME like '%FK2%'";
-
-				preparedStatment = conn.prepareStatement(sql);
-				preparedStatment.setString(1, table);
-				resultSet = preparedStatment.executeQuery();
-
-				if (resultSet.next()) {
-
-					String knotCapsuleString = resultSet.getString("r_owner");
-					CapsuleDao capsuleDao = new CapsuleDao();
-					Capsule knotCapsule = new Capsule(knotCapsuleString);
-					knotCapsule = capsuleDao.selectCapsule(knotCapsule);
-
-					String knotTable = resultSet.getString("r_table_name");
-					String[] params = knotTable.split("_");
-					KnotDao knotDao = new KnotDao();
-					Knot knot = new Knot(params[1], params[0], knotCapsule, null, null, false, null);
-					knot = knotDao.selectKnot(knot);
-
-					attribute.setKnot(knot);
-				}
-			}
-
-			column = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_VALIDFROM";
-
-			preparedStatment = conn.prepareStatement(sql);
-			preparedStatment.setString(1, schema);
-			preparedStatment.setString(2, table);
-			preparedStatment.setString(3, column);
-			resultSet = preparedStatment.executeQuery();
-
-			if (resultSet.next()) {
-
-				// historized
-				String timeRange = resultSet.getString("DATA_TYPE") + "(" + resultSet.getString("DATA_PRECISION") + ")";
-				attribute.setTimeRange(timeRange);
-
-			} else {
-
-				attribute.setTimeRange(null);
-			}
-		} else {
-			
-			attribute = null;
-		}
+		preparedStatment.execute();
 		ConnectionPool.getInstance().releaseConnection(conn);
-		return attribute;
 	}
 }

@@ -25,10 +25,10 @@ public class Trigger {
 				"end;";
 		try {
 			
-
 			Connection conn = ConnectionPool.getInstance().getConnection();
 			Statement stmt = conn.prepareStatement(sql);
 			stmt.executeQuery(sql);
+			ConnectionPool.getInstance().releaseConnection(conn);
 			
 		} catch (SQLException e) {
 			

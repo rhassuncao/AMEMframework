@@ -17,6 +17,5 @@ public class Sequence {
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.execute();
 		ConnectionPool.getInstance().releaseConnection(conn);
-
 	}
 }

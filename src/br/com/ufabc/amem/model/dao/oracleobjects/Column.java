@@ -14,10 +14,11 @@ public class Column {
 				  boolean primaryKey,
 				  boolean autoIncrement) {
 		
-		this.name = name;
-		this.dataType = dataType;
-		this.notNull = notNull;
-		this.primaryKey = primaryKey;
+		this.name          = name;
+		this.dataType      = dataType;
+		this.notNull       = notNull;
+		this.primaryKey    = primaryKey;
+		this.autoIncrement = autoIncrement;
 	}
 
 	public String getName() {
