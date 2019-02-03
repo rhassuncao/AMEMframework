@@ -17,15 +17,17 @@ public class Table {
 		
 		String sql = "CREATE TABLE " + schema + "." + table + "(";
 		
+		ArrayList<String> primaryKeys = new ArrayList<>();
+		
 		for (int i = 0; i < columns.size(); i++) {
 			
-			Column col = columns.get(0);
+			Column col = columns.get(i);
 			
 			sql += col.getName() + " " + col.getDataType();
 			
 			if(col.isPrimaryKey()) {
 				
-				sql += " PRIMARY KEY";
+				primaryKeys.add(col.getName());
 			}
 			
 			if(col.isNotNull()) {
@@ -33,17 +35,41 @@ public class Table {
 				sql += " NOT NULL";
 			}
 			
-			if(i+1 != columns.size() || !FKs.isEmpty()) {
+			if(i+1 != columns.size() || !FKs.isEmpty() || !primaryKeys.isEmpty()) {
 				
 				sql += ",";
 			}
 		}
 		
-		for(FK fk: FKs) {
+		for (int j = 0; j < FKs.size(); j++) {
 			
-			sql += "CONSTRAINT " + fk.getSchema() + "." + fk.getName() + " FOREIGN KEY "
-				+ fk.getColumn().getName() + "(" + fk.getTable() + ")" 
+			FK fk = FKs.get(j);
+			
+			sql += "CONSTRAINT " + fk.getName() + " FOREIGN KEY "
+				+  "(" + fk.getColumn().getName() + ")" 
 				+ "  REFERENCES " + fk.getExternalTable() + "(" + fk.getExternalColumn().getName() + ")";
+			
+			if(j+1 != FKs.size() || !primaryKeys.isEmpty()) {
+				
+				sql += ",";
+			}
+		}
+		
+		if(!primaryKeys.isEmpty()) {
+			 
+			sql += " CONSTRAINT PK_" + table +  " PRIMARY KEY (";
+			
+			for (int k = 0; k < primaryKeys.size(); k++) {
+				
+				sql += primaryKeys.get(k);
+				
+				if(k+1 != primaryKeys.size()) {
+					
+					sql += ",";
+				}
+			}
+			
+			sql += ")";
 		}
 		
 		sql += ")";

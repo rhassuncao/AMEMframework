@@ -2,7 +2,6 @@ package br.com.ufabc.amem.model.dao.oracleobjects;
 
 public class FK {
 	
-	private String schema;
 	private String name;
 	private String tableSchema;
 	private String table;
@@ -11,8 +10,7 @@ public class FK {
 	private String externalTable;
 	private Column externalColumn;
 	
-	public FK(String schema, 
-			  String name, 
+	public FK(String name, 
 			  String tableSchema, 
 			  String table, 
 			  Column column, 
@@ -20,7 +18,6 @@ public class FK {
 			  String externalTable, 
 			  Column externalColumn) {
 		
-		this.schema              = schema;
 		this.name                = name;
 		this.tableSchema         = tableSchema;
 		this.table               = table;
@@ -28,14 +25,6 @@ public class FK {
 		this.externalTableSchema = externalTableSchema;
 		this.externalTable       = externalTable;
 		this.externalColumn      = externalColumn;
-	}
-
-	public String getSchema() {
-		return schema;
-	}
-
-	public void setSchema(String schema) {
-		this.schema = schema;
 	}
 
 	public String getName() {

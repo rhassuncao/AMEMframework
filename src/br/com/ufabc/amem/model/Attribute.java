@@ -122,4 +122,24 @@ public class Attribute {
 			      + this.getAnchor().getDescriptor() + "_"
 			      + this.getDescriptor();
 	}
+	
+	public boolean isKnotted() {
+		
+		if(this.knot == null) {
+			
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean isHistorized() {
+		
+		if(this.timeRange == null) {
+			
+			return false;
+		}
+		
+		return true;
+	}
 }

@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.ufabc.amem.model.Knot;
+import br.com.ufabc.amem.model.dao.oracleobjects.Column;
+import br.com.ufabc.amem.model.dao.oracleobjects.FK;
+import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class KnotDao {
@@ -47,22 +51,22 @@ public class KnotDao {
 		return knot;
 	}
 
-	// TODO this may have injection
 	public void createKnot(Knot knot) throws SQLException {
 
-		String schema = knot.getCapsule().getName();
-		String table = knot.getMnemonic() + "_" + knot.getDescriptor();
-		String primaryKey = knot.getMnemonic() + "_ID";
-		String primaryKeyType = knot.getIdentity();
-		String column = knot.getMnemonic() + "_" + knot.getDescriptor();
-		String columnType = knot.getDataRange();
+		String schema          = knot.getCapsule().getName();
+		String knotTable       = knot.getTable();
+		String columnIdName    = knot.getMnemonic() + "_ID";
+		String columnIdType    = knot.getIdentity();
+		String columnDescName  = knot.getMnemonic() + "_" + knot.getDescriptor();
+		String columnDescType  = knot.getDataRange();
 
-		String sql = "CREATE TABLE " + schema + "." + table + " (" + primaryKey + " " + primaryKeyType
-				+ " PRIMARY KEY not null," + column + " " + columnType + " not null)";
-
-		Connection conn = ConnectionPool.getInstance().getConnection();
-		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		ConnectionPool.getInstance().releaseConnection(conn);
+		Column columnId           = new Column(columnIdName, columnIdType, true, true, true);
+		Column columnDesc         = new Column(columnDescName, columnDescType, true, false, false);
+		ArrayList<Column> columns = new ArrayList<>();
+		columns.add(columnId);
+		columns.add(columnDesc);
+		
+		Table table2 = new Table();
+		table2.createTable(schema, knotTable, columns, new ArrayList<FK>());
 	}
 }

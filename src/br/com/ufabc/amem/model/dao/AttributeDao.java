@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.model.Attribute;
 import br.com.ufabc.amem.model.Capsule;
 import br.com.ufabc.amem.model.Knot;
+import br.com.ufabc.amem.model.dao.oracleobjects.Column;
+import br.com.ufabc.amem.model.dao.oracleobjects.FK;
+import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class AttributeDao {
@@ -16,10 +20,10 @@ public class AttributeDao {
 	// TODO this may have injection
 	public void historizeAttribute(Attribute attribute) throws ObjectAlreadyCreated, SQLException {
 
-		String schema = attribute.getCapsule().getName();
-		String attributeTable = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_"
-				+ attribute.getAnchor().getDescriptor() + "_" + attribute.getDescriptor();
-		String historyColumn = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_ValidFrom";
+		String schema         = attribute.getCapsule().getName();
+		String attributeTable = attribute.getTable();
+		String historyColumn  = attribute.getAnchor().getMnemonic() 
+							  + "_" + attribute.getMnemonic() + "_ValidFrom";
 
 		String sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
 				+ attribute.getTimeRange() + " not null)";
@@ -30,67 +34,62 @@ public class AttributeDao {
 		ConnectionPool.getInstance().releaseConnection(conn);
 	}
 
-	// TODO this may have injection
 	public void createAttribute(Attribute attribute) throws SQLException {
 
-		String schema = attribute.getCapsule().getName();
-		String attributeTable = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_"
-				+ attribute.getAnchor().getDescriptor() + "_" + attribute.getDescriptor();
-		String primaryKey = attribute.getAnchor().getMnemonic() + "_ID";
-		String primaryKeyType = attribute.getAnchor().getIdentity();
+		String schema           = attribute.getCapsule().getName();
+		String attributeTable   = attribute.getTable();
+		String columnAnchorName = attribute.getAnchor().getMnemonic() + "_ID";
+		String columnAnchorType = attribute.getAnchor().getIdentity();
+		
+		ArrayList<Column> columns = new ArrayList<>();
+		ArrayList<FK>     FKs     = new ArrayList<>();
+		
+		Column columnAnchor = new Column(columnAnchorName, columnAnchorType, true, true, true);
+		columns.add(columnAnchor);
+		
+		String columnAnchorFKName = "FK1_" + attributeTable;
+		String anchorTable        = attribute.getAnchor().getTable();
+		String anchorSchema       = attribute.getAnchor().getCapsule().getName();
 
-		String sql = "CREATE TABLE " + schema + "." + attributeTable + " (" + primaryKey + " " + primaryKeyType
-				+ " primary key not null,";
+		FK fkAnchor = new FK(columnAnchorFKName, schema, attributeTable, columnAnchor, anchorSchema , anchorTable , columnAnchor);
+		FKs.add(fkAnchor);
 
-		// knotted attribute
-		if (attribute.getKnot() != null) {
+		if (attribute.isKnotted()) {
 
-			String knottedField = attribute.getKnot().getMnemonic() + "_ID";
-			String KnottedFieldType = attribute.getKnot().getIdentity();
-			String knottedFieldFKName = "FK2_" + attributeTable;
-			String KnotTable = attribute.getKnot().getMnemonic() + "_" + attribute.getKnot().getDescriptor();
-			String knotSchema = attribute.getKnot().getCapsule().getName();
-
-			sql += knottedField + " " + KnottedFieldType + " not null," + "  CONSTRAINT " + knottedFieldFKName
-					+ "    FOREIGN KEY (" + knottedField + ")" + "    REFERENCES " + knotSchema + "." + KnotTable + "("
-					+ knottedField + "),";
+			String columnKnotName   = attribute.getKnot().getMnemonic() + "_ID";
+			String columnKnotType   = attribute.getKnot().getIdentity();
+			Column columnKnotted    = new Column(columnKnotName , columnKnotType, true, false, false);
+			columns.add(columnKnotted);
+			
+			String columnknotFKName = "FK2_" + attributeTable;
+			String knotTable        = attribute.getKnot().getTable();
+			String knotSchema       = attribute.getKnot().getCapsule().getName();
+			FK fkKnot 				= new FK(columnknotFKName, schema, attributeTable, columnKnotted, knotSchema, knotTable, columnKnotted);
+			FKs.add(fkKnot);
 
 		} else {
 
-			String columnName = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_"
-					+ attribute.getAnchor().getDescriptor() + "_" + attribute.getDescriptor();
-			String columnType = attribute.getDataRange();
+			String columnStaticName = attribute.getAnchor().getMnemonic() + "_" 
+									+ attribute.getMnemonic() + "_"
+									+ attribute.getAnchor().getDescriptor() + "_" 
+									+ attribute.getDescriptor();
+			String columnStaticType = attribute.getDataRange();
 
-			sql += columnName + " " + columnType + " not null,";
+			Column columnStatic = new Column(columnStaticName , columnStaticType, true, false, false);
+			columns.add(columnStatic);
 		}
 
-		String foreignKeyName = "FK1_" + attribute.getMnemonic() + "_" + attribute.getDescriptor();
-		String foreignKeyExternalTable = attribute.getAnchor().getMnemonic() + "_"
-				+ attribute.getAnchor().getDescriptor();
-		String foreignKeyExternalField = attribute.getAnchor().getMnemonic() + "_ID";
-		String foreignKeySchema = attribute.getAnchor().getCapsule().getName();
+		if (attribute.isHistorized()) {
 
-		sql += "  CONSTRAINT " + foreignKeyName + "    FOREIGN KEY (" + primaryKey + ")" + "   REFERENCES "
-				+ foreignKeySchema + "." + foreignKeyExternalTable + "(" + foreignKeyExternalField + "))";
-
-		Connection conn = ConnectionPool.getInstance().getConnection();
-
-		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-
-		// historized
-		if (attribute.getTimeRange() != null) {
-
-			// TODO timestamp its not part of the PK
-			String historyColumn = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_ValidFrom";
-			sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
-					+ attribute.getTimeRange() + " not null)";
-
-			preparedStatment = conn.prepareStatement(sql);
-			preparedStatment.execute();
+			String historyColumnName = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_ValidFrom";
+			String historyColumnType = attribute.getTimeRange();
+			
+			Column historyColumn = new Column(historyColumnName , historyColumnType, true, true, false);
+			columns.add(historyColumn);
 		}
-
-		ConnectionPool.getInstance().releaseConnection(conn);
+		
+		Table table = new Table();
+		table.createTable(schema, attributeTable, columns, FKs);
 	}
 
 	public Attribute selectAttribute(Attribute attribute) throws SQLException {
