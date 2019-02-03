@@ -4,32 +4,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.ufabc.amem.model.Anchor;
+import br.com.ufabc.amem.model.dao.oracleobjects.Column;
+import br.com.ufabc.amem.model.dao.oracleobjects.FK;
+import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class AnchorDao {
 
-	// TODO this may have injection
 	public void createAnchor(Anchor anchor) throws SQLException {
 
-		String schema = anchor.getCapsule().getName();
-		String table = anchor.getMnemonic() + "_" + anchor.getDescriptor();
-		String primaryKey = anchor.getMnemonic() + "_ID";
-		String primaryKeyType = anchor.getIdentity();
-
-		String sql = "CREATE TABLE " + schema + "." + table + "(" + primaryKey + " " + primaryKeyType + " PRIMARY KEY)";
-
-		Connection conn = ConnectionPool.getInstance().getConnection();
-		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		ConnectionPool.getInstance().releaseConnection(conn);
-
-		if (anchor.isGenerator() == true) {
-
-			AutoIncrementDao autoIncrementDao = new AutoIncrementDao();
-			autoIncrementDao.createAutoIncrement(schema, table, primaryKey);
-		}
+		String schema     = anchor.getCapsule().getName();
+		String table      = anchor.getTable();
+		String columnName = anchor.getMnemonic() + "_ID";
+		String columnType = anchor.getIdentity();
+		
+		Column column             = new Column(columnName, columnType, true, true, true);
+		ArrayList<Column> columns = new ArrayList<>();
+		columns.add(column);
+		
+		Table table2           = new Table();
+		table2.createTable(schema, table, columns, new ArrayList<FK>());
 	}
 
 	public Anchor selectAnchor(Anchor anchor) throws SQLException {

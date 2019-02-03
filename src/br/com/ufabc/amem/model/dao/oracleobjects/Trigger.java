@@ -1,4 +1,4 @@
-package br.com.ufabc.amem.model.dao;
+package br.com.ufabc.amem.model.dao.oracleobjects;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 import br.com.ufabc.amem.util.ConnectionPool;
 
-public class TriggerDao {
+public class Trigger {
 	
 	//TODO this may have injection
 	protected void createAutoIncrementTrigger(String schema, 

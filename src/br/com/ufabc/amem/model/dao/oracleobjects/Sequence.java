@@ -1,4 +1,4 @@
-package br.com.ufabc.amem.model.dao;
+package br.com.ufabc.amem.model.dao.oracleobjects;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import br.com.ufabc.amem.util.ConnectionPool;
 
-public class SequenceDao {
+public class Sequence {
 
 	// TODO this may have injection
 	public void createSequence(String schema, String name) throws SQLException {

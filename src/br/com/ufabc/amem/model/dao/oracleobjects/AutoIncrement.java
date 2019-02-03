@@ -1,8 +1,8 @@
-package br.com.ufabc.amem.model.dao;
+package br.com.ufabc.amem.model.dao.oracleobjects;
 
 import java.sql.SQLException;
 
-public class AutoIncrementDao {
+public class AutoIncrement {
 
 	public void createAutoIncrement(String schema, String table, String primaryKey) throws SQLException {
 
@@ -11,11 +11,11 @@ public class AutoIncrementDao {
 							+ primaryKey          
 							+ "_SEQ";
 		
-		SequenceDao sequenceDao = new SequenceDao();
+		Sequence sequenceDao = new Sequence();
 		sequenceDao.createSequence(schema, sequenceName);
 		
 		//Create the trigger
-		TriggerDao triggerDao = new TriggerDao();
+		Trigger triggerDao = new Trigger();
 		String triggerName    = "TRG_" + table + "_" + primaryKey;
 		triggerDao.createAutoIncrementTrigger(schema, triggerName , table, primaryKey, sequenceName);
 	}

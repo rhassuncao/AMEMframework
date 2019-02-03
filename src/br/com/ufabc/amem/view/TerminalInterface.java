@@ -37,7 +37,7 @@ public class TerminalInterface {
 
 			// drop trigger RGHA.TRG_CO_CONTAINER_CO_ID
 
-			// drop table RGHA.CO_SI_CONTAINER_SIGLA
+			// drop table RGHA.CO_SIG_CONTAINER_SIGLA
 
 			// drop table RGHA.COS_COLORS
 

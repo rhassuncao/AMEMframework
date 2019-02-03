@@ -91,6 +91,6 @@ public class Anchor {
 	
 	public String getTable() {
 		
-		return this.getMnemonic() + "." + this.getDescriptor();
+		return this.getMnemonic() + "_" + this.getDescriptor();
 	}
 }
