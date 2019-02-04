@@ -11,14 +11,15 @@ public class Instructions {
 	public Instructions() {
 		
 		this.map = new HashMap<String, String>();
-		map.put("createAnchor",       "descriptor mnemonic capsule dataRange generator description");
-		map.put("createAttribute",    "anchorCapcule anchor descriptor mnemonic attributeCapsule dataRange description timeRange knotCapsule knot");
-		map.put("createKnot",         "knot mnemonic dataRange identity generator description");
-		map.put("createTie",          "");
-		map.put("connectionInfo",     "no prameters");
-		map.put("connectiontest",     "no parameters");
-		map.put("exit",               "no parameters");
-		map.put("historizeAttribute", "capsule, attribute, anchorCapsule, timeRange, defaultTime");
+		map.put("CREATEANCHOR",       "descriptor, mnemonic, capsule, dataRange, generator, description");
+		map.put("CREATEATTRIBUTE",    "anchorCapcule, anchor, descriptor, mnemonic, attributeCapsule, dataRange, description, timeRange, knotCapsule, knot");
+		map.put("CREATEKNOT",         "knot, mnemonic, dataRange, identity, generator, description");
+		map.put("CREATETIE",          "");
+		map.put("CONNECTIONINFO",     "no prameters");
+		map.put("CONNECTIONTEST",     "no parameters");
+		map.put("EXIT",               "no parameters");
+		map.put("HELP",               "functionName");
+		map.put("HISTORIZEATTRIBUTE", "capsule, attribute, anchorCapsule, timeRange, defaultTime");
 		//map.put("", "");
 	}
 	

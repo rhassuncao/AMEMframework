@@ -3,7 +3,7 @@ package br.com.ufabc.amem.model.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.com.ufabc.amem.model.Anchor;
+import br.com.ufabc.amem.model.am.Anchor;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;

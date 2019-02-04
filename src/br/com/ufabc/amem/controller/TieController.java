@@ -3,9 +3,9 @@ package br.com.ufabc.amem.controller;
 import java.sql.SQLException;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
-import br.com.ufabc.amem.model.Anchor;
-import br.com.ufabc.amem.model.Capsule;
-import br.com.ufabc.amem.model.Tie;
+import br.com.ufabc.amem.model.am.Anchor;
+import br.com.ufabc.amem.model.am.Capsule;
+import br.com.ufabc.amem.model.am.Tie;
 import br.com.ufabc.amem.model.dao.TieDao;
 import br.com.ufabc.amem.util.Validate;
 

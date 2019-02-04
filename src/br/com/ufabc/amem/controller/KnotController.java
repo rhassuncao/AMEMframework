@@ -3,8 +3,8 @@ package br.com.ufabc.amem.controller;
 import java.sql.SQLException;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
-import br.com.ufabc.amem.model.Capsule;
-import br.com.ufabc.amem.model.Knot;
+import br.com.ufabc.amem.model.am.Capsule;
+import br.com.ufabc.amem.model.am.Knot;
 import br.com.ufabc.amem.model.dao.KnotDao;
 import br.com.ufabc.amem.util.Validate;
 

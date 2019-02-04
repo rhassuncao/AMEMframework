@@ -3,11 +3,11 @@ package br.com.ufabc.amem.util;
 import java.sql.SQLException;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
-import br.com.ufabc.amem.model.Anchor;
-import br.com.ufabc.amem.model.Attribute;
-import br.com.ufabc.amem.model.Capsule;
-import br.com.ufabc.amem.model.Knot;
-import br.com.ufabc.amem.model.Tie;
+import br.com.ufabc.amem.model.am.Anchor;
+import br.com.ufabc.amem.model.am.Attribute;
+import br.com.ufabc.amem.model.am.Capsule;
+import br.com.ufabc.amem.model.am.Knot;
+import br.com.ufabc.amem.model.am.Tie;
 import br.com.ufabc.amem.model.dao.AnchorDao;
 import br.com.ufabc.amem.model.dao.AttributeDao;
 import br.com.ufabc.amem.model.dao.CapsuleDao;
@@ -162,5 +162,16 @@ public class Validate {
 	public boolean validateIdentifierN(String identifierNString) {
 
 		return Boolean.valueOf(identifierNString);
+	}
+
+	public String validateSequenceName(String sequenceName) {
+		
+		//max oracle sequence name size
+		if(sequenceName.length() > 30) {
+			
+			sequenceName = sequenceName.substring(0, 30);
+		}
+		
+		return sequenceName;
 	}
 }

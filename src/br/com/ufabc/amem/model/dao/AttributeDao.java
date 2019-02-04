@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
-import br.com.ufabc.amem.model.Attribute;
+import br.com.ufabc.amem.model.am.Attribute;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
@@ -24,7 +24,7 @@ public class AttributeDao {
 		ArrayList<Column> columns = new ArrayList<>();
 		ArrayList<FK>     FKs     = new ArrayList<>();
 		
-		Column columnAnchor = new Column(columnAnchorName, columnAnchorType, true, true, true);
+		Column columnAnchor = new Column(columnAnchorName, columnAnchorType, true, true, false);
 		columns.add(columnAnchor);
 		
 		String columnAnchorFKName = "FK1_" + attributeTable;

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.com.ufabc.amem.model.Capsule;
+import br.com.ufabc.amem.model.am.Capsule;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class CapsuleDao {

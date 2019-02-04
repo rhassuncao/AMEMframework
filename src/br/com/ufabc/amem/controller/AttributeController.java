@@ -4,10 +4,10 @@ import java.sql.SQLException;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
-import br.com.ufabc.amem.model.Anchor;
-import br.com.ufabc.amem.model.Attribute;
-import br.com.ufabc.amem.model.Capsule;
-import br.com.ufabc.amem.model.Knot;
+import br.com.ufabc.amem.model.am.Anchor;
+import br.com.ufabc.amem.model.am.Attribute;
+import br.com.ufabc.amem.model.am.Capsule;
+import br.com.ufabc.amem.model.am.Knot;
 import br.com.ufabc.amem.model.dao.AttributeDao;
 import br.com.ufabc.amem.util.Validate;
 

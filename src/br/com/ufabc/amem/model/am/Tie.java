@@ -1,4 +1,4 @@
-package br.com.ufabc.amem.model;
+package br.com.ufabc.amem.model.am;
 
 public class Tie {
 	
