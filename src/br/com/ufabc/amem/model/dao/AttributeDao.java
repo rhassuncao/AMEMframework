@@ -49,8 +49,8 @@ public class AttributeDao {
 
 		} else {
 
-			String columnStaticName = attribute.getAnchor().getMnemonic() + "_" 
-									+ attribute.getMnemonic() + "_"
+			String columnStaticName = attribute.getAnchor().getMnemonic()   + "_" 
+									+ attribute.getMnemonic()               + "_"
 									+ attribute.getAnchor().getDescriptor() + "_" 
 									+ attribute.getDescriptor();
 			String columnStaticType = attribute.getDataRange();
@@ -61,7 +61,8 @@ public class AttributeDao {
 
 		if (attribute.isHistorized()) {
 
-			String historyColumnName = attribute.getAnchor().getMnemonic() + "_" + attribute.getMnemonic() + "_ValidFrom";
+			String historyColumnName = attribute.getAnchor().getMnemonic() + "_" 
+									 + attribute.getMnemonic()             + "_ValidFrom";
 			String historyColumnType = attribute.getTimeRange();
 			
 			Column historyColumn = new Column(historyColumnName , historyColumnType, true, true, false);
@@ -86,16 +87,16 @@ public class AttributeDao {
 			
 		} else {
 
-			String columnStaticName = attribute.getAnchor().getMnemonic() + "_" 
-					+ attribute.getMnemonic() + "_"
-					+ attribute.getAnchor().getDescriptor() + "_" 
-					+ attribute.getDescriptor();
+			String columnStaticName = attribute.getAnchor().getMnemonic()   + "_" 
+									+ attribute.getMnemonic()               + "_"
+									+ attribute.getAnchor().getDescriptor() + "_" 
+									+ attribute.getDescriptor();
 
 			for (int i = 0; i < columns.size(); i++) {
 				
 				if (columnStaticName.equalsIgnoreCase(columns.get(i).getName())) {
 					
-					attribute.setDataRange(columns.get(i).getDataType());;
+					attribute.setDataRange(columns.get(i).getDataType());
 				}
 			}
 			
@@ -115,8 +116,8 @@ public class AttributeDao {
 				}
 			}
 
-			String historyColumn = attribute.getAnchor().getMnemonic() 
-								 + "_" + attribute.getMnemonic() + "_ValidFrom";
+			String historyColumn = attribute.getAnchor().getMnemonic() + "_" 
+								 + attribute.getMnemonic() 			   + "_ValidFrom";
 			
 			for (int i = 0; i < columns.size(); i++) {
 				
@@ -136,8 +137,8 @@ public class AttributeDao {
 
 		String schema         = attribute.getCapsule().getName();
 		String attributeTable = attribute.getTable();
-		String historyColumn  = attribute.getAnchor().getMnemonic() 
-							  + "_" + attribute.getMnemonic() + "_ValidFrom";
+		String historyColumn  = attribute.getAnchor().getMnemonic() + "_"
+							   + attribute.getMnemonic() 			+ "_ValidFrom";
 
 		String sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
 				+ attribute.getTimeRange() 

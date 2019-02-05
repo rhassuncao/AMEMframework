@@ -28,58 +28,72 @@ public class FK {
 	}
 
 	public String getName() {
+		
 		return name;
 	}
 
 	public void setName(String name) {
+		
 		this.name = name;
 	}
 
 	public String getTableSchema() {
+		
 		return tableSchema;
 	}
 
 	public void setTableSchema(String tableSchema) {
+		
 		this.tableSchema = tableSchema;
 	}
 
 	public String getTable() {
+		
 		return table;
 	}
 
 	public void setTable(String table) {
+		
 		this.table = table;
 	}
 
 	public Column getColumn() {
+		
 		return column;
 	}
 
 	public void setColumn(Column column) {
+		
 		this.column = column;
 	}
 
 	public String getExternalTableSchema() {
+		
 		return externalTableSchema;
 	}
 
 	public void setExternalTableSchema(String externalTableSchema) {
+		
 		this.externalTableSchema = externalTableSchema;
 	}
 
 	public String getExternalTable() {
+		
 		return externalTable;
 	}
 
 	public void setExternalTable(String externalTable) {
+		
 		this.externalTable = externalTable;
 	}
 
 	public Column getExternalColumn() {
+		
 		return externalColumn;
 	}
 
 	public void setExternalColumn(Column externalColumn) {
+		
 		this.externalColumn = externalColumn;
 	}
 }

@@ -11,9 +11,9 @@ public class ConnectionInfo extends Function{
 	
 	public ConnectionInfo(){
 		
-		this.name           = "ConnectionInfo";
-		this.description    = "Shows information about the connection";
-		this.parameters     = new ArrayList<String>();
+		this.name        = "ConnectionInfo";
+		this.description = "Shows information about the connection";
+		this.parameters  = new ArrayList<String>();
 	}
 
 	@Override

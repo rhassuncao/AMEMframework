@@ -10,13 +10,13 @@ public class Knot {
 	protected boolean  generator;
 	protected String   description;
 	
-	public Knot(String descriptor, 
-			    String mnemonic, 
+	public Knot(String  descriptor, 
+			    String  mnemonic, 
 			    Capsule capsule, 
-			    String dataRange, 
-			    String identity,
+			    String  dataRange, 
+			    String  identity,
 			    boolean generator, 
-			    String description) {
+			    String  description) {
 
 		this.descriptor  = descriptor;
 		this.mnemonic    = mnemonic;
@@ -28,58 +28,72 @@ public class Knot {
 	}
 
 	public String getDescriptor() {
+		
 		return descriptor;
 	}
 
 	public void setDescriptor(String descriptor) {
+		
 		this.descriptor = descriptor;
 	}
 
 	public String getMnemonic() {
+		
 		return mnemonic;
 	}
 
 	public void setMnemonic(String mnemonic) {
+		
 		this.mnemonic = mnemonic;
 	}
 
 	public Capsule getCapsule() {
+		
 		return capsule;
 	}
 
 	public void setCapsule(Capsule capsule) {
+		
 		this.capsule = capsule;
 	}
 
 	public String getDataRange() {
+		
 		return dataRange;
 	}
 
 	public void setDataRange(String dataRange) {
+		
 		this.dataRange = dataRange;
 	}
 
 	public String getIdentity() {
+		
 		return identity;
 	}
 
 	public void setIdentity(String identity) {
+		
 		this.identity = identity;
 	}
 
 	public boolean isGenerator() {
+		
 		return generator;
 	}
 
 	public void setGenerator(boolean generator) {
+		
 		this.generator = generator;
 	}
 
 	public String getDescription() {
+		
 		return description;
 	}
 
 	public void setDescription(String description) {
+		
 		this.description = description;
 	}
 	

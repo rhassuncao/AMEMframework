@@ -10,6 +10,7 @@ import br.com.ufabc.amem.util.ConnectionPool;
 
 public class CapsuleDao {
 
+	//TODO convert this to oracle object
 	public Capsule selectCapsule(Capsule capsule) throws SQLException {
 
 		String sql    = "select * from SYS.ALL_USERS where USERNAME = ?";

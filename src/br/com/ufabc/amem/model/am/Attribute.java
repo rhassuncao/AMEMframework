@@ -117,7 +117,7 @@ public class Attribute {
 	
 	public String getTable() {
 		
-		return 	this.getAnchor().getMnemonic()   + "_" 
+		return 	this.getAnchor().getMnemonic()       + "_" 
 			      + this.getMnemonic()               + "_"
 			      + this.getAnchor().getDescriptor() + "_"
 			      + this.getDescriptor();

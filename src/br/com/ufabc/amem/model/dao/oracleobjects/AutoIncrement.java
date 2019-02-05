@@ -18,7 +18,7 @@ public class AutoIncrement {
 		
 		//Create the trigger
 		Trigger triggerDao = new Trigger();
-		String triggerName    = "TRG_" + table + "_" + primaryKey;
+		String triggerName = "TRG_" + table + "_" + primaryKey;
 		triggerDao.createAutoIncrementTrigger(schema, triggerName , table, primaryKey, sequenceName);
 	}
 }

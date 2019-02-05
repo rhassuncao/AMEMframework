@@ -39,7 +39,7 @@ public class TerminalInterface {
 
 		do {
 
-			String[] params = null;
+			String[] params   = null;
 			String showScreen = "";
 			//String line     = scanner.nextLine();
 			//TODO remov - Just for test
@@ -47,7 +47,6 @@ public class TerminalInterface {
 			System.out.println("$" + line);
 			t++;
 			
-
 			if(line.contains("(")) {
 				
 				functionName = line.substring(0, line.indexOf("(")).trim().toUpperCase();
@@ -69,7 +68,6 @@ public class TerminalInterface {
 				
 				Function function = Functions.getFunction(functionName);
 				
-				
 				if(function != null) {
 					
 					showScreen = function.execute(params);
@@ -78,7 +76,6 @@ public class TerminalInterface {
 					
 					showScreen = Strings.getString("thisIsNotAValidComand");
 				}
-
 			} catch (InvalidParameterNumber | InvalidObject | SQLException | ObjectAlreadyCreated exception) {
 
 				showScreen = exception.getMessage();

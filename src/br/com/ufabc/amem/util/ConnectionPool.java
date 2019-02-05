@@ -12,17 +12,18 @@ import java.util.Properties;
 public class ConnectionPool {
 
 	// TODO should exceptions be treated here?
-	private static ConnectionPool instance;
 	private static String ip;
 	private static String port;
 	private static String base;
 	private static String username;
 	private static String password;
+	private static ConnectionPool instance;
+	private static int INITIAL_POOL_SIZE = 5;
 	private static List<Connection> connectionPool;
 	private List<Connection> usedConnections = new ArrayList<>();
-	private static int INITIAL_POOL_SIZE = 10;
 
 	private ConnectionPool() {
+		
 	}
 
 	static {
@@ -64,8 +65,7 @@ public class ConnectionPool {
 
 			for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
 				
-				Connection connection = null;
-				connection = DriverManager.getConnection(getUrl(), username, password);
+				Connection connection = DriverManager.getConnection(getUrl(), username, password);
 				connectionPool.add(connection);
 				
 				if (connection == null) {

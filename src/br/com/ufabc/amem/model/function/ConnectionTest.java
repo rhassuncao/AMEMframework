@@ -14,9 +14,9 @@ public class ConnectionTest extends Function{
 	
 	public ConnectionTest(){
 		
-		this.name           = "connectionTest";
-		this.description    = "Create an Attribute anchor modeling object";
-		this.parameters     = new ArrayList<String>();
+		this.name        = "connectionTest";
+		this.description = "Create an Attribute anchor modeling object";
+		this.parameters  = new ArrayList<String>();
 	}
 	
 	@Override

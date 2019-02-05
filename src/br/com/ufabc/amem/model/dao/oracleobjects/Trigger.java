@@ -10,10 +10,10 @@ public class Trigger {
 	
 	//TODO this may have injection
 	protected void createAutoIncrementTrigger(String schema, 
-								 String triggerName, 
-								 String table, 
-								 String field, 
-								 String sequenceName) {
+								 			  String triggerName, 
+								 			  String table, 
+								 			  String field, 
+								 			  String sequenceName) {
 		
 		String sql = "CREATE TRIGGER " + schema + "." + triggerName +
 				"  before insert on " + schema + "." + table + 

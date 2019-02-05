@@ -12,9 +12,9 @@ public class Exit extends Function{
 	
 	public Exit(){
 		
-		this.name           = "Exit";
-		this.description    = "Exit the system";
-		this.parameters     = new ArrayList<String>();
+		this.name        = "Exit";
+		this.description = "Exit the system";
+		this.parameters  = new ArrayList<String>();
 	}
 
 	@Override

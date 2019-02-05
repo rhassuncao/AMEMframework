@@ -12,9 +12,9 @@ public class Help extends Function{
 	
 	public Help(){
 		
-		this.name           = "Help";
-		this.description    = "Show information about all working functions";
-		this.parameters     = new ArrayList<String>();
+		this.name        = "Help";
+		this.description = "Show information about all working functions";
+		this.parameters  = new ArrayList<String>();
 	}
 
 	@Override
@@ -42,7 +42,6 @@ public class Help extends Function{
 					returnString += ", ";
 				}
 			}
-			
 			returnString += "\n";
 		}
 

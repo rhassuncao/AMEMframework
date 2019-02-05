@@ -68,7 +68,6 @@ public class Validate {
 				throw new InvalidObject(mnemonic);
 			}
 		}
-		
 		return mnemonic.toUpperCase();
 	}
 
@@ -94,7 +93,7 @@ public class Validate {
 	
 	public String validateDescription (String description) throws InvalidObject {
 		
-		//gibbest description size for oracle
+		//biggest description size for oracle
 		if(description.length() > 4000) {
 			
 			throw new InvalidObject(description);
