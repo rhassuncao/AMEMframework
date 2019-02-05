@@ -8,5 +8,5 @@ import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 
 public interface Executable {
 
-	void execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated;
+	String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated;
 }

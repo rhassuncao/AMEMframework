@@ -1,6 +1,7 @@
 package br.com.ufabc.amem.model.function;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.ufabc.amem.controller.AttributeController;
 import br.com.ufabc.amem.exceptions.InvalidObject;
@@ -8,22 +9,26 @@ import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.util.Strings;
 
-public class HistorizeAttribute implements Executable {
+public class HistorizeAttribute extends Function{
 	
-	private String command;
+	public HistorizeAttribute(){
+		
+		this.name           = "historizeAttribute";
+		this.description    = "Create an Attribute anchor modeling object";
+		this.parameters     = new ArrayList<String>();
+		this.parameters.add("capsule");
+		this.parameters.add("attribute");
+		this.parameters.add("anchorCapsule");
+		this.parameters.add("timeRange");
+		this.parameters.add("defaultTime");
+	}
 
 	@Override
-	public void execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
+	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
 		
-		if (params.length == 5) {
+		validateParameters(params);
 
-			AttributeController attributeControler = new AttributeController();
-			attributeControler.historizeAttribute(params[0], params[1], params[2], params[3], params[4]);
-			System.out.println(Strings.getString("objectCreated"));
-
-		} else {
-
-			throw new InvalidParameterNumber(command);
-		}
+		new AttributeController().historizeAttribute(params[0], params[1], params[2], params[3], params[4]);
+		return Strings.getString("objectCreated");
 	}
 }

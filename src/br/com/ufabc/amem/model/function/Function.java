@@ -3,20 +3,15 @@ package br.com.ufabc.amem.model.function;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.com.ufabc.amem.controller.AttributeController;
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
-import br.com.ufabc.amem.util.Strings;
 
-public class Function {
+public abstract class Function implements Executable {
 	
-	protected static String            name;
-	protected static ArrayList<String> parameters;
-	protected static String            description;
-	
-	public Function() {
-	}
+	protected String            name;
+	protected ArrayList<String> parameters;
+	protected String            description;
 
 	public String getName() {
 		return name;
@@ -42,15 +37,13 @@ public class Function {
 		this.description = description;
 	}
 	
-	public void execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
-		
-	}
+	public abstract String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated;
 	
 	protected void validateParameters(String[] params) throws InvalidParameterNumber {
 		
 		if (params.length != parameters.size()) {
 
-			throw new InvalidParameterNumber(name);
+			throw new InvalidParameterNumber(this);
 		}
 	}
 }

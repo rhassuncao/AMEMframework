@@ -1,56 +1,54 @@
 package br.com.ufabc.amem.model.function;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
-import br.com.ufabc.amem.util.Instructions;
 import br.com.ufabc.amem.util.Strings;
 
-public class Help implements Executable{
+public class Help extends Function{
 	
-	private String command;
+	public Help(){
+		
+		this.name           = "Help";
+		this.description    = "Show information about all working functions";
+		this.parameters     = new ArrayList<String>();
+	}
 
 	@Override
-	public void execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
+	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		
-		if (params == null) {
+		String returnString = "";
 
-			System.out.println(
-					"==================================================================================================="); //$NON-NLS-1$
-			System.out.println(
-					Strings.getString("help"));
-			System.out.println(
-					"==================================================================================================="); //$NON-NLS-1$
-			System.out.println(Strings.getString("operatorParameters"));
+		returnString += "===================================================================================================\n";
+		returnString += Strings.getString("help") + "\n";
+		returnString += "===================================================================================================\n";
+		returnString += Strings.getString("operatorParameters") + "\n";
 
-			Map<String, String> instructions = new Instructions().getAllInstructions();
+		Map<String, Function> functions = Functions.getAllFunctions();
 
-			for (Map.Entry<String, String> instruction : instructions.entrySet()) {
-				System.out.println(completeWithSpace(instruction.getKey(), 20) + ": " + instruction.getValue());
-			}
-
-			System.out.println(
-					"==================================================================================================="); //$NON-NLS-1$
-		
-		} else if (params != null && params.length == 1) {
+		for (Map.Entry<String, Function> function : functions.entrySet()) {
+				
+			returnString += completeWithSpace(function.getValue().getName(), 20) + ": ";
 			
-			String instruction = new Instructions().getInstruction(params[0].toUpperCase());
-			
-			if(instruction == null) {
+			for(int i = 0; i < function.getValue().getParameters().size(); i++) {
 				
-				throw new InvalidObject(params[0]);
+				returnString += function.getValue().getParameters().get(i);
 				
-			} else {
-				
-				System.out.println(instruction);
+				if(i+1 < function.getValue().getParameters().size()) {
+					
+					returnString += ", ";
+				}
 			}
 			
-		} else {
-
-			throw new InvalidParameterNumber(command);
+			returnString += "\n";
 		}
+
+		returnString += "===================================================================================================\n";
+	
+		return returnString;
 	}
 	
 	private static String completeWithSpace(String text, int size) {

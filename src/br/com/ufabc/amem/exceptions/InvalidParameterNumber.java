@@ -1,13 +1,12 @@
 package br.com.ufabc.amem.exceptions;
 
-import br.com.ufabc.amem.util.Instructions;
+import br.com.ufabc.amem.model.function.Function;
 
 @SuppressWarnings("serial")
 public class InvalidParameterNumber extends Exception {
 
-	public InvalidParameterNumber(String function) {
+	public InvalidParameterNumber(Function function) {
 		
-		super("Invalid Parameter Number for function " + function + "!\n"
-				+ "Parameters: " + new Instructions().getInstruction(function));
+		super("Invalid Parameter Number for function " + function.getName());
 	}
 }

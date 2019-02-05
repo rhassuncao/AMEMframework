@@ -6,16 +6,21 @@ import java.util.ArrayList;
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
+import br.com.ufabc.amem.util.Strings;
 
-public class Exit extends Function implements Executable{
-
-	public Exit(String name, ArrayList<String> parameters, String description) {
-		// TODO Auto-generated constructor stub
+public class Exit extends Function{
+	
+	public Exit(){
+		
+		this.name           = "Exit";
+		this.description    = "Exit the system";
+		this.parameters     = new ArrayList<String>();
 	}
 
 	@Override
-	public void execute(String[] params)
+	public String execute(String[] params)
 			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
 
+		return Strings.getString("bye") + "\n";
 	}
 }

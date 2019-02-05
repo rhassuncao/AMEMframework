@@ -1,6 +1,7 @@
 package br.com.ufabc.amem.model.function;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.ufabc.amem.controller.AttributeController;
 import br.com.ufabc.amem.exceptions.InvalidObject;
@@ -9,32 +10,29 @@ import br.com.ufabc.amem.util.Strings;
 
 public class CreateAttribute extends Function{
 	
-	private static CreateAttribute instance;
-	
-	private CreateAttribute() {
-	}
-
-	static {
-
-		instance       = new CreateAttribute();
-		name           = "createAttribute";
-		description    = "Create an Attribute anchor modeling object";
-		parameters.add("descriptor");
-		parameters.add("mnemonic");
-		parameters.add("capsule");
-		parameters.add("dataRange");
-		parameters.add("generator");
-		parameters.add("description");
+	public CreateAttribute() {
+		
+		this.name           = "createAttribute";
+		this.description    = "Create an Attribute anchor modeling object";
+		this.parameters     = new ArrayList<String>();
+		this.parameters.add("anchorCapcule");
+		this.parameters.add("anchor");
+		this.parameters.add("descriptor");
+		this.parameters.add("mnemonic");
+		this.parameters.add("attributeCapsule");
+		this.parameters.add("dataRange");
+		this.parameters.add("description");
+		this.parameters.add("timeRange");
+		this.parameters.add("knotCapsule");
+		this.parameters.add("knot");
 	}
 
 	@Override
-	public void execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
+	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		
 		validateParameters(params);
-
-		AttributeController attributeControler = new AttributeController();
-		attributeControler.createAttribute(params[0], params[1], params[2], params[3], params[4], params[5],
+		new AttributeController().createAttribute(params[0], params[1], params[2], params[3], params[4], params[5],
 				params[6], params[7], params[8], params[9]);
-		System.out.println(Strings.getString("objectCreated"));
+		return Strings.getString("objectCreated");
 	}
 }
