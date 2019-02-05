@@ -20,32 +20,32 @@ public class TerminalInterface {
 		Scanner scanner     = new Scanner(System.in);
 		String functionName = null;
 		
-		//TODO remov - Just for test
-		ArrayList<String> testList = new ArrayList<>();
-		testList.add("help");
-		testList.add("connectionTest");
-		testList.add("CONNECTIONTEST");
-		testList.add("connectionInfo");
-		testList.add("connectionTest");
-		testList.add("createAnchor(Container, CO, RGHA, number(10), true, container)");
-		testList.add("createAnchor(Container, CO, RGHA, number(10), true, container)");
-		testList.add("createAttribute( RGHA, CO_CONTAINER, Sigla, SIG, RGHA, varchar(10), descricao, null, null, null)");
-		testList.add("createKnot(Colors, COS, RGHA, varchar(15), number(5), false, knot)");
-		testList.add("createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)");
-		testList.add("historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992, dd/mm/yyyy)");
-		testList.add("invalidoperation");
-		testList.add("exit");
-		int t = 0;
+//		//TODO remov - Just for test
+//		ArrayList<String> testList = new ArrayList<>();
+//		testList.add("help");
+//		testList.add("connectionTest");
+//		testList.add("CONNECTIONTEST");
+//		testList.add("connectionInfo");
+//		testList.add("connectionTest");
+//		testList.add("createAnchor(Container, CO, RGHA, number(10), true, container)");
+//		testList.add("createAnchor(Container, CO, RGHA, number(10), true, container)");
+//		testList.add("createAttribute( RGHA, CO_CONTAINER, Sigla, SIG, RGHA, varchar(10), descricao, null, null, null)");
+//		testList.add("createKnot(Colors, COS, RGHA, varchar(15), number(5), false, knot)");
+//		testList.add("createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)");
+//		testList.add("historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992, dd/mm/yyyy)");
+//		testList.add("invalidoperation");
+//		testList.add("exit");
+//		int t = 0;
 
 		do {
 
 			String[] params   = null;
 			String showScreen = "";
-			//String line     = scanner.nextLine();
+			String line     = scanner.nextLine();
 			//TODO remov - Just for test
-			String line = testList.get(t);
-			System.out.println("$" + line);
-			t++;
+//			String line = testList.get(t);
+//			System.out.println("$" + line);
+//			t++;
 			
 			if(line.contains("(")) {
 				
