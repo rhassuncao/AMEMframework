@@ -1,11 +1,13 @@
 package br.com.ufabc.amem.view;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
+import br.com.ufabc.amem.model.function.Function;
 import br.com.ufabc.amem.model.function.Functions;
 import br.com.ufabc.amem.util.Strings;
 
@@ -17,11 +19,34 @@ public class TerminalInterface {
 		
 		Scanner scanner     = new Scanner(System.in);
 		String functionName = null;
+		
+		//TODO remov - Just for test
+		ArrayList<String> testList = new ArrayList<>();
+		testList.add("help");
+		testList.add("connectionTest");
+		testList.add("CONNECTIONTEST");
+		testList.add("connectionInfo");
+		testList.add("connectionTest");
+		testList.add("createAnchor(Container, CO, RGHA, number(10), true, container)");
+		testList.add("createAnchor(Container, CO, RGHA, number(10), true, container)");
+		testList.add("createAttribute( RGHA, CO_CONTAINER, Sigla, SIG, RGHA, varchar(10), descricao, null, null, null)");
+		testList.add("createKnot(Colors, COS, RGHA, varchar(15), number(5), false, knot)");
+		testList.add("createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)");
+		testList.add("historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992)");
+		testList.add("invalidoperation");
+		testList.add("exit");
+		int t = 0;
 
 		do {
 
 			String[] params = null;
-			String line     = scanner.nextLine();
+			String showScreen = "";
+			//String line     = scanner.nextLine();
+			//TODO remov - Just for test
+			String line = testList.get(t);
+			System.out.println("$" + line);
+			t++;
+			
 
 			if(line.contains("(")) {
 				
@@ -41,14 +66,26 @@ public class TerminalInterface {
 			}
 			
 			try {
-
-				System.out.println(Functions.getFunction(functionName).execute(params));
+				
+				Function function = Functions.getFunction(functionName);
+				
+				
+				if(function != null) {
+					
+					showScreen = function.execute(params);
+					
+				} else {
+					
+					showScreen = Strings.getString("thisIsNotAValidComand");
+				}
 
 			} catch (InvalidParameterNumber | InvalidObject | SQLException | ObjectAlreadyCreated exception) {
 
-				System.out.println(exception.getMessage());
+				showScreen = exception.getMessage();
 			}
-
+			
+			System.out.println(showScreen);
+			
 		} while (!functionName.equalsIgnoreCase("EXIT"));
 
 		scanner.close();

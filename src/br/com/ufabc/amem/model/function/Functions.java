@@ -12,7 +12,7 @@ public class Functions {
 		functions = new TreeMap<String, Function>(String.CASE_INSENSITIVE_ORDER);
 		registerFunction(new CreateAttribute());
 		registerFunction(new ConnectionInfo());
-		registerFunction(new ConnectionTest()); //
+		registerFunction(new ConnectionTest());
 		registerFunction(new CreateAnchor());
 		registerFunction(new CreateKnot());
 		registerFunction(new Exit());
