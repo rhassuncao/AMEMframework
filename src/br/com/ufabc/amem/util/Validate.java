@@ -174,4 +174,9 @@ public class Validate {
 		
 		return sequenceName;
 	}
+
+	public String validateTimeFormat(String defaultTimeFormat) {
+		// TODO Auto-generated method stub
+		return defaultTimeFormat;
+	}
 }

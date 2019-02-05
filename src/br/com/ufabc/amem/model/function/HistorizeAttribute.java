@@ -21,6 +21,7 @@ public class HistorizeAttribute extends Function{
 		this.parameters.add("anchorCapsule");
 		this.parameters.add("timeRange");
 		this.parameters.add("defaultTime");
+		this.parameters.add("defaultTimeFormat");
 	}
 
 	@Override
@@ -28,7 +29,7 @@ public class HistorizeAttribute extends Function{
 		
 		validateParameters(params);
 
-		new AttributeController().historizeAttribute(params[0], params[1], params[2], params[3], params[4]);
+		new AttributeController().historizeAttribute(params[0], params[1], params[2], params[3], params[4], params[5]);
 		return Strings.getString("objectCreated");
 	}
 }

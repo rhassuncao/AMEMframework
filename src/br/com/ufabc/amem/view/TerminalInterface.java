@@ -32,7 +32,7 @@ public class TerminalInterface {
 		testList.add("createAttribute( RGHA, CO_CONTAINER, Sigla, SIG, RGHA, varchar(10), descricao, null, null, null)");
 		testList.add("createKnot(Colors, COS, RGHA, varchar(15), number(5), false, knot)");
 		testList.add("createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)");
-		testList.add("historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992)");
+		testList.add("historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992, dd/mm/yyyy)");
 		testList.add("invalidoperation");
 		testList.add("exit");
 		int t = 0;

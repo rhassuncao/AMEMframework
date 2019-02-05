@@ -132,7 +132,7 @@ public class AttributeDao {
 	
 	//TODO this may have injection
 	//TODO wrong way to do it because de valid from must be part of pk
-	public void historizeAttribute(Attribute attribute) throws ObjectAlreadyCreated, SQLException {
+	public void historizeAttribute(Attribute attribute, String defaultTime, String defaultTimeFormat) throws ObjectAlreadyCreated, SQLException {
 
 		String schema         = attribute.getCapsule().getName();
 		String attributeTable = attribute.getTable();
@@ -140,7 +140,9 @@ public class AttributeDao {
 							  + "_" + attribute.getMnemonic() + "_ValidFrom";
 
 		String sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
-				+ attribute.getTimeRange() + " not null)";
+				+ attribute.getTimeRange() 
+				+ " DEFAULT TO_DATE('" + defaultTime + "', '" + defaultTimeFormat + "')"
+				+ " not null)";
 
 		Connection conn = ConnectionPool.getInstance().getConnection();
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);

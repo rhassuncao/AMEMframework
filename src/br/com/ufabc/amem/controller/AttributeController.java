@@ -49,7 +49,8 @@ public class AttributeController {
 								   String attributeString,
 								   String anchorCapsuleString,
 								   String timeRange, 
-								   String defaultTime) throws InvalidObject, ObjectAlreadyCreated, SQLException {
+								   String defaultTime,
+								   String defaultTimeFormat) throws InvalidObject, ObjectAlreadyCreated, SQLException {
 		
 		//Validate objects
 		Validate validate        = new Validate();
@@ -57,10 +58,11 @@ public class AttributeController {
 		Capsule anchorCapsule    = validate.validateCapsule(anchorCapsuleString);
 		Attribute attribute      = validate.validateAttribute(attributeCapsule, attributeString, anchorCapsule);
 		timeRange                = validate.validateTimeRange(timeRange);
+		defaultTimeFormat        = validate.validateTimeFormat(defaultTimeFormat);
 		
 		attribute.setTimeRange(timeRange);
 				
 		AttributeDao attributeDao = new AttributeDao();
-		attributeDao.historizeAttribute(attribute);
+		attributeDao.historizeAttribute(attribute, defaultTime, defaultTimeFormat);
 	}
 }
