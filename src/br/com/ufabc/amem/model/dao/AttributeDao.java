@@ -10,6 +10,7 @@ import br.com.ufabc.amem.model.am.Attribute;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class AttributeDao {
@@ -149,5 +150,12 @@ public class AttributeDao {
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.execute();
 		ConnectionPool.getInstance().releaseConnection(conn);
+	}
+
+	public ImpactList createAttributeImpact(Attribute attribute) {
+		
+		ImpactList impactList = new ImpactList();
+		impactList.addAttributeImpact(attribute, "Create");
+		return impactList;
 	}
 }

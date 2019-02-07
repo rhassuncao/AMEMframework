@@ -51,6 +51,6 @@ public class AnchorDao {
 		
 		ImpactList impactList = new ImpactList();
 		impactList.addAnchorImpact(anchor, "Create");
-		return null;
+		return impactList;
 	}
 }

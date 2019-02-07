@@ -32,14 +32,18 @@ public class CreateAttribute extends Function{
 	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		
 		validateParameters(params);
+		
 		new AttributeController().createAttribute(params[0], params[1], params[2], params[3], params[4], params[5],
 				params[6], params[7], params[8], params[9]);
 		return Strings.getString("objectCreated");
 	}
 
 	@Override
-	public ImpactList getImpact(String[] params) {
-		// TODO Auto-generated method stub
-		return null;
+	public ImpactList getImpact(String[] params) throws InvalidParameterNumber, InvalidObject, SQLException {
+		
+		validateParameters(params);
+		
+		return new AttributeController().createAttributeImpact(params[0], params[1], params[2], params[3], params[4], params[5],
+				params[6], params[7], params[8], params[9]);
 	}
 }

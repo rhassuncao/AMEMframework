@@ -71,8 +71,6 @@ public class ImpactList {
 		String returnString = "";
 
 		returnString += "===================================================================================================\n";
-		returnString += Strings.getString("impacts") + "\n";
-		returnString += "===================================================================================================\n";
 		
 		if(!anchorImpacts.isEmpty()) {
 			
