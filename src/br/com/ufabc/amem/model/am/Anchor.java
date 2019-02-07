@@ -1,6 +1,6 @@
 package br.com.ufabc.amem.model.am;
 
-public class Anchor {
+public class Anchor extends AnchorObject{
 	
 	protected String  descriptor;
 	protected String  mnemonic;

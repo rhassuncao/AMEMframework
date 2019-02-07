@@ -1,6 +1,6 @@
 package br.com.ufabc.amem.model.am;
 
-public class Tie {
+public class Tie  extends AnchorObject{
 	
 	private Capsule capsuleAnchor1;
 	private Anchor  anchor1;
@@ -160,5 +160,10 @@ public class Tie {
 				+ this.getRole1()                 + "_"
 				+ this.getAnchor2().getMnemonic() + "_"
 				+ this.getRole2() ;
+	}
+
+	public String getDescriptor() {
+		// TODO Auto-generated method stub
+		return "";
 	}
 }

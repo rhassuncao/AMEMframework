@@ -7,6 +7,7 @@ import br.com.ufabc.amem.controller.KnotController;
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.Strings;
 
 public class CreateKnot extends Function{
@@ -35,7 +36,7 @@ public class CreateKnot extends Function{
 	}
 
 	@Override
-	public String getImpact() {
+	public ImpactList getImpact(String[] params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

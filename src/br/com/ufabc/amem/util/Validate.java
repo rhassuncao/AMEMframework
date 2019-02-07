@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.model.am.Anchor;
+import br.com.ufabc.amem.model.am.AnchorObject;
 import br.com.ufabc.amem.model.am.Attribute;
 import br.com.ufabc.amem.model.am.Capsule;
 import br.com.ufabc.amem.model.am.Knot;
@@ -52,9 +53,8 @@ public class Validate {
 	}
 
 	//TODO uppercase is only at oracle
-	public String validateMnemonic(String mnemonic, Object object) throws InvalidObject {
+	public String validateMnemonic(String mnemonic, AnchorObject object) throws InvalidObject {
 
-		//TODO
 		if(object instanceof Anchor || object instanceof Tie) {
 			
 			if(mnemonic.length() != 2) {

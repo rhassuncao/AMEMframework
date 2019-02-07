@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public abstract class Function implements Executable {
 	
@@ -54,5 +55,5 @@ public abstract class Function implements Executable {
 		}
 	}
 	
-	public abstract String getImpact();
+	public abstract ImpactList getImpact(String[] params);
 }

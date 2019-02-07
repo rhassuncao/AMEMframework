@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import br.com.ufabc.amem.controller.AnchorController;
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.Strings;
 
 public class CreateAnchor extends Function{
@@ -33,7 +34,7 @@ public class CreateAnchor extends Function{
 	}
 
 	@Override
-	public String getImpact() {
+	public ImpactList getImpact(String[] params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

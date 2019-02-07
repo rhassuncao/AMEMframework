@@ -1,6 +1,6 @@
 package br.com.ufabc.amem.model.am;
 
-public class Attribute {
+public class Attribute  extends AnchorObject{
 
 	protected Anchor  anchor;
 	protected String  descriptor;

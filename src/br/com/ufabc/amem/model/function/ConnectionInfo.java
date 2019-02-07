@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class ConnectionInfo extends Function{
@@ -23,7 +24,7 @@ public class ConnectionInfo extends Function{
 	}
 
 	@Override
-	public String getImpact() {
+	public ImpactList getImpact(String[] params) {
 
 		return null;
 	}

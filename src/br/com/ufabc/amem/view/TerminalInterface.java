@@ -8,6 +8,7 @@ import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.model.function.Function;
 import br.com.ufabc.amem.model.function.Functions;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.Strings;
 
 public class TerminalInterface {
@@ -69,9 +70,11 @@ public class TerminalInterface {
 				
 				if(function != null) {
 					
-					if(function.getImpact() != null) {
+					ImpactList impactList = function.getImpact(params);
+					
+					if(impactList != null) {
 						
-						System.out.println(function.getImpact());
+						System.out.println(impactList.toString());
 						System.out.println(Strings.getString("confirmOperation"));
 						
 						if(scanner.nextLine().equalsIgnoreCase(Strings.getString("operationConfirmed"))) {
@@ -90,7 +93,7 @@ public class TerminalInterface {
 				
 				} else {
 					
-					showScreen = Strings.getString("thisIsNotAValidComand");
+					showScreen = Strings.getString("invalidCommand");
 				}
 			} catch (InvalidParameterNumber | InvalidObject | SQLException | ObjectAlreadyCreated exception) {
 

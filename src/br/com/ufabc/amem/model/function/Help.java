@@ -6,6 +6,7 @@ import java.util.Map;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.Strings;
 
 public class Help extends Function{
@@ -31,7 +32,7 @@ public class Help extends Function{
 
 		for (Map.Entry<String, Function> function : functions.entrySet()) {
 				
-			returnString += completeWithSpace(function.getValue().getName(), 20) + ": ";
+			returnString += Strings.completeWithSpace(function.getValue().getName(), 20) + ": ";
 			
 			for(int i = 0; i < function.getValue().getParameters().size(); i++) {
 				
@@ -49,19 +50,9 @@ public class Help extends Function{
 	
 		return returnString;
 	}
-	
-	private static String completeWithSpace(String text, int size) {
-		
-		for (int i = text.length(); i < size; i++) {
-			
-			text += " ";
-		}
-		
-		return text;
-	}
 
 	@Override
-	public String getImpact() {
+	public ImpactList getImpact(String[] params) {
 
 		return null;
 	}

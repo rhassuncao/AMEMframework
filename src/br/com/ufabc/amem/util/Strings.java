@@ -23,4 +23,14 @@ public class Strings {
 			return '!' + key + '!';
 		}
 	}
+	
+	public static String completeWithSpace(String text, int size) {
+		
+		for (int i = text.length(); i < size; i++) {
+			
+			text += " ";
+		}
+		
+		return text;
+	}
 }
