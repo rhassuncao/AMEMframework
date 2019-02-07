@@ -73,60 +73,66 @@ public class ImpactList {
 		returnString += "===================================================================================================\n";
 		returnString += Strings.getString("impacts") + "\n";
 		returnString += "===================================================================================================\n";
-		returnString += Strings.getString("anchorImpacts") + "\n";
-		returnString += "===================================================================================================\n";
-		returnString += Strings.getString("anchorImpact") + "\n";
+		
+		if(!anchorImpacts.isEmpty()) {
+			
+			returnString += Strings.getString("anchorImpacts") + "\n";
+			returnString += "===================================================================================================\n";
+			returnString += Strings.getString("anchorImpact") + "\n";
 
-		for (Entry<Anchor, String> impact : anchorImpacts.entrySet()) {
-				
-			returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
-			returnString += impact.getValue();
-			returnString += "\n";
+			for (Entry<Anchor, String> impact : anchorImpacts.entrySet()) {
+					
+				returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
+				returnString += impact.getValue();
+				returnString += "\n";
+			}
+			returnString += "===================================================================================================\n";
 		}
 		
-		returnString += "===================================================================================================\n";
-		
-		returnString += Strings.getString("attributeImpacts") + "\n";
-		returnString += "===================================================================================================\n";
-		returnString += Strings.getString("attributeImpact") + "\n";
+		if(!attributeImpacts.isEmpty()) {
+			
+			returnString += Strings.getString("attributeImpacts") + "\n";
+			returnString += "===================================================================================================\n";
+			returnString += Strings.getString("attributeImpact") + "\n";
 
-		for (Entry<Attribute, String> impact : attributeImpacts.entrySet()) {
-				
-			returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
-			returnString += impact.getValue();
-			returnString += "\n";
+			for (Entry<Attribute, String> impact : attributeImpacts.entrySet()) {
+					
+				returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
+				returnString += impact.getValue();
+				returnString += "\n";
+			}
+			returnString += "===================================================================================================\n";	
 		}
 
-		returnString += "===================================================================================================\n";
+		if(!tieImpacts.isEmpty()) {
+			
+			returnString += Strings.getString("tieImpacts") + "\n";
+			returnString += "===================================================================================================\n";
+			returnString += Strings.getString("tieImpact") + "\n";
 
-		returnString += "===================================================================================================\n";
+			for (Entry<Tie, String> impact : tieImpacts.entrySet()) {
+					
+				returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
+				returnString += impact.getValue();
+				returnString += "\n";
+			}
+			returnString += "===================================================================================================\n";	
+		}
 	
-		returnString += Strings.getString("tieImpacts") + "\n";
-		returnString += "===================================================================================================\n";
-		returnString += Strings.getString("tieImpact") + "\n";
+		if(!knotImpacts.isEmpty()) {
+			returnString += Strings.getString("knotImpacts") + "\n";
+			returnString += "===================================================================================================\n";
+			returnString += Strings.getString("knotImpact") + "\n";
 
-		for (Entry<Tie, String> impact : tieImpacts.entrySet()) {
-				
-			returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
-			returnString += impact.getValue();
-			returnString += "\n";
+			for (Entry<Knot, String> impact : knotImpacts.entrySet()) {
+					
+				returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
+				returnString += impact.getValue();
+				returnString += "\n";
+			}
+			returnString += "===================================================================================================\n";
+			
 		}
-
-		returnString += "===================================================================================================\n";
-		
-		returnString += Strings.getString("knotImpacts") + "\n";
-		returnString += "===================================================================================================\n";
-		returnString += Strings.getString("knotImpact") + "\n";
-
-		for (Entry<Knot, String> impact : knotImpacts.entrySet()) {
-				
-			returnString += Strings.completeWithSpace(impact.getKey().getDescriptor(), 20) + ": ";
-			returnString += impact.getValue();
-			returnString += "\n";
-		}
-
-		returnString += "===================================================================================================\n";
-		
 		return returnString;
 	}
 }

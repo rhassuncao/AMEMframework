@@ -7,6 +7,7 @@ import br.com.ufabc.amem.model.am.Anchor;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public class AnchorDao {
 
@@ -44,5 +45,12 @@ public class AnchorDao {
 		}
 		
 		return anchor;
+	}
+
+	public ImpactList createAnchorImpacts(Anchor anchor) {
+		
+		ImpactList impactList = new ImpactList();
+		impactList.addAnchorImpact(anchor, "Create");
+		return null;
 	}
 }

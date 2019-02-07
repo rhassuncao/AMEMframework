@@ -55,5 +55,5 @@ public abstract class Function implements Executable {
 		}
 	}
 	
-	public abstract ImpactList getImpact(String[] params);
+	public abstract ImpactList getImpact(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber;
 }
