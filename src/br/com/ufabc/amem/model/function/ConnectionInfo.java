@@ -21,4 +21,10 @@ public class ConnectionInfo extends Function{
 		
 		return ConnectionPool.getUrl();
 	}
+
+	@Override
+	public String getImpact() {
+
+		return null;
+	}
 }

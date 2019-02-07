@@ -23,4 +23,10 @@ public class Exit extends Function{
 
 		return Strings.getString("bye") + "\n";
 	}
+
+	@Override
+	public String getImpact() {
+
+		return null;
+	}
 }

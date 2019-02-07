@@ -38,4 +38,10 @@ public class ConnectionTest extends Function{
 		ConnectionPool.getInstance().releaseConnection(conn);
 		return returnString;
 	}
+
+	@Override
+	public String getImpact() {
+
+		return null;
+	}
 }

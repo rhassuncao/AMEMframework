@@ -12,9 +12,9 @@ public class Table {
 	
 	// TODO this may have injection
 	public void createTable(String schema, 
-							   String table, 
-							   ArrayList<Column> columns, 
-							   ArrayList<FK> FKs) throws SQLException {
+							String table, 
+							ArrayList<Column> columns, 
+							ArrayList<FK> FKs) throws SQLException {
 		
 		String sql = "CREATE TABLE " + schema + "." + table + "(";
 		

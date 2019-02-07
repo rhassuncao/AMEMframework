@@ -35,4 +35,10 @@ public class CreateAttribute extends Function{
 				params[6], params[7], params[8], params[9]);
 		return Strings.getString("objectCreated");
 	}
+
+	@Override
+	public String getImpact() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

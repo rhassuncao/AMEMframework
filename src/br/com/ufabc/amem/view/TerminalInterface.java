@@ -1,7 +1,6 @@
 package br.com.ufabc.amem.view;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
@@ -70,8 +69,25 @@ public class TerminalInterface {
 				
 				if(function != null) {
 					
-					showScreen = function.execute(params);
-					
+					if(function.getImpact() != null) {
+						
+						System.out.println(function.getImpact());
+						System.out.println(Strings.getString("confirmOperation"));
+						
+						if(scanner.nextLine().equalsIgnoreCase(Strings.getString("operationConfirmed"))) {
+							
+							showScreen = function.execute(params);
+							
+						} else {
+							
+							showScreen = Strings.getString("operationCanceled");
+						}
+						
+					} else {
+						
+						showScreen = function.execute(params);
+					}
+				
 				} else {
 					
 					showScreen = Strings.getString("thisIsNotAValidComand");

@@ -53,4 +53,6 @@ public abstract class Function implements Executable {
 			throw new InvalidParameterNumber(this);
 		}
 	}
+	
+	public abstract String getImpact();
 }

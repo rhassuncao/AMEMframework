@@ -59,4 +59,10 @@ public class Help extends Function{
 		
 		return text;
 	}
+
+	@Override
+	public String getImpact() {
+
+		return null;
+	}
 }
