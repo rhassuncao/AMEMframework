@@ -18,6 +18,7 @@ public class Functions {
 		registerFunction(new Exit());
 		registerFunction(new Help());
 		registerFunction(new HistorizeAttribute());
+		registerFunction(new createTie());
 	}
 
 	public static Map<String, Function> getAllFunctions(){
