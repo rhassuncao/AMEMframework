@@ -7,6 +7,7 @@ import br.com.ufabc.amem.model.am.Knot;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
+import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public class KnotDao {
 
@@ -48,5 +49,12 @@ public class KnotDao {
 		}
 		
 		return knot;
+	}
+
+	public ImpactList createKnotImpact(Knot knot) {
+		
+		ImpactList impactList = new ImpactList();
+		impactList.addKnotImpact(knot, "Create");
+		return impactList;
 	}
 }
