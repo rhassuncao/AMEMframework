@@ -1,14 +1,9 @@
 package br.com.ufabc.amem.view;
 
-import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
@@ -19,23 +14,11 @@ import br.com.ufabc.amem.util.Strings;
 
 public class TerminalInterface {
 
-	public static void main(String[] args) {
+	public static void run() {
 		
-		JFrame frame = new JFrame("AMEM Framework");
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-		frame.setLayout(new GridLayout(2,1,1,5)); 
 		
-		JTextArea textArea1 = new JTextArea();
-		JScrollPane scrollPane = new JScrollPane(textArea1);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		textArea1.setEditable(false);
-		frame.add(scrollPane);  
-		  
-		JTextArea textArea2 = new JTextArea("Text area with initial text");  
-		frame.add(textArea2);  
-
-		frame.setVisible(true);  
+		JFrame window = new VisualInterface();
+		window.setVisible(true);
 
 		System.out.println(Strings.getString("welcome"));
 		
