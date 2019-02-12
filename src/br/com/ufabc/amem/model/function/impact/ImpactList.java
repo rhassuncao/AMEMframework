@@ -16,15 +16,25 @@ public class ImpactList {
 	public Map<Tie,       String> tieImpacts;
 	public Map<Knot,      String> knotImpacts;
 	public Map<Attribute, String> attributeImpacts;
+	public Map<String,    String> tableImpacts;
+	public Map<String,    String> functionImpacts;
+	public Map<String,    String> procedureImpacts;
+	public Map<String,    String> triggerImpacts;
+	public Map<String,    String> constraintImpacts;
 	
 	public ImpactList() {
 		
-		this.anchorImpacts    = new HashMap<Anchor,    String>();
-		this.tieImpacts       = new HashMap<Tie,       String>();
-		this.knotImpacts      = new HashMap<Knot,      String>();
-		this.attributeImpacts = new HashMap<Attribute, String>();
+		this.anchorImpacts     = new HashMap<Anchor,    String>();
+		this.tieImpacts        = new HashMap<Tie,       String>();
+		this.knotImpacts       = new HashMap<Knot,      String>();
+		this.attributeImpacts  = new HashMap<Attribute, String>();
+		this.tableImpacts      = new HashMap<String,    String>();
+		this.functionImpacts   = new HashMap<String,    String>();
+		this.procedureImpacts  = new HashMap<String,    String>();
+		this.triggerImpacts    = new HashMap<String,    String>();
+		this.constraintImpacts = new HashMap<String,    String>();
 	}
-	
+
 	public void addAnchorImpact(Anchor anchor, String operation) {
 		
 		this.anchorImpacts.put(anchor, operation);
@@ -43,6 +53,31 @@ public class ImpactList {
 	public void addAttributeImpact(Attribute attribute, String operation) {
 		
 		this.attributeImpacts.put(attribute, operation);
+	}
+	
+	public void addTableImpact(String table, String operation) {
+		
+		this.tableImpacts.put(table, operation);
+	}
+	
+	public void addFunctionImpact(String function, String operation) {
+		
+		this.functionImpacts.put(function, operation);
+	}
+	
+	public void addProcedureImpact(String procedure, String operation) {
+		
+		this.procedureImpacts.put(procedure, operation);
+	}
+	
+	public void addTriggerImpact(String trigger, String operation) {
+		
+		this.triggerImpacts.put(trigger, operation);
+	}
+
+	public void addconstraintImpact(String constraint, String operation) {
+		
+		this.constraintImpacts.put(constraint, operation);
 	}
 
 	public Map<Anchor, String> getAnchorImpacts() {
@@ -63,6 +98,31 @@ public class ImpactList {
 	public Map<Attribute, String> getAttributeImpacts() {
 		
 		return attributeImpacts;
+	}
+	
+	public Map<String, String> getTableImpacts() {
+		
+		return tableImpacts;
+	}
+
+	public Map<String, String> getFunctionImpacts() {
+		
+		return functionImpacts;
+	}
+
+	public Map<String, String> getProcedureImpacts() {
+		
+		return procedureImpacts;
+	}
+
+	public Map<String, String> getTriggerImpacts() {
+		
+		return triggerImpacts;
+	}
+
+	public Map<String, String> getConstraintsImpacts() {
+		
+		return constraintImpacts;
 	}
 	
 	@Override

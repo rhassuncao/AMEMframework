@@ -305,8 +305,10 @@ public class VisualInterface extends JFrame {
 					tree.setModel(new DefaultTreeModel(
 							new DefaultMutableTreeNode(Strings.getString("impacts")) {
 								{
-									DefaultMutableTreeNode anchorModelingNode = new DefaultMutableTreeNode("Anchor Modeling");
-									
+									if(!anchorImpacts.isEmpty() || !attributeImpacts.isEmpty() || !tieImpacts.isEmpty() || !knotImpacts.isEmpty()) {
+										
+										DefaultMutableTreeNode anchorModelingNode = new DefaultMutableTreeNode("Anchor Modeling");
+										
 										if(!anchorImpacts.isEmpty()) {
 											
 											DefaultMutableTreeNode anchorNode     = new DefaultMutableTreeNode(Strings.getString("anchor"));
@@ -340,7 +342,7 @@ public class VisualInterface extends JFrame {
 											}
 										}
 										
-										if(!tieImpacts.isEmpty()) {
+										if(!knotImpacts.isEmpty()) {
 											
 											DefaultMutableTreeNode knotNode       = new DefaultMutableTreeNode(Strings.getString("knot"));
 											anchorModelingNode.add(knotNode);
@@ -352,6 +354,8 @@ public class VisualInterface extends JFrame {
 										}
 										
 									add(anchorModelingNode);
+									}
+									
 									
 									//TODO fill the impact list for database objects
 									DefaultMutableTreeNode DataBaseNode        = new DefaultMutableTreeNode(Strings.getString("database"));
@@ -367,9 +371,6 @@ public class VisualInterface extends JFrame {
 										
 										DefaultMutableTreeNode triggerNode     = new DefaultMutableTreeNode(Strings.getString("trigger"));
 										DataBaseNode.add(triggerNode);
-										
-										DefaultMutableTreeNode sequenceNode    = new DefaultMutableTreeNode(Strings.getString("sequence"));
-										DataBaseNode.add(sequenceNode);
 										
 										DefaultMutableTreeNode constraintsNode = new DefaultMutableTreeNode(Strings.getString("constraints"));
 										DataBaseNode.add(constraintsNode);
@@ -422,9 +423,9 @@ public class VisualInterface extends JFrame {
 			} catch (InvalidObject | SQLException | InvalidParameterNumber | ObjectAlreadyCreated e) {
 
 				showScreen += e.getMessage();
-			
-				styledDocument.insertString(styledDocument.getLength(), "[" + getTime() + "] - $" + SYSTEM+ ": " + showScreen + "\n", null);
 			}
+			
+			styledDocument.insertString(styledDocument.getLength(), "[" + getTime() + "] - $" + SYSTEM+ ": " + showScreen + "\n", null);
 			
 		} catch (BadLocationException e) {
 			
