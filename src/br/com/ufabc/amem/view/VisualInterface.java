@@ -26,6 +26,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import java.awt.Color;
@@ -84,6 +85,9 @@ public class VisualInterface extends JFrame {
 	 */
 	public VisualInterface() {
 		
+		ImageIcon img = new ImageIcon("src/br/com/ufabc/amem/images/database.png");
+		this.setIconImage(img.getImage());
+				
 		this.confirmFunction = null;
 		
 		setResizable(false);
