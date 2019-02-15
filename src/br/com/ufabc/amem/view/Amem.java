@@ -1,5 +1,6 @@
 package br.com.ufabc.amem.view;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -110,7 +111,7 @@ public static void main(String[] args) {
 					
 					showScreen = Strings.getString("invalidCommand");
 				}
-			} catch (InvalidParameterNumber | InvalidObject | SQLException | ObjectAlreadyCreated exception) {
+			} catch (InvalidParameterNumber | InvalidObject | SQLException | ObjectAlreadyCreated | IOException exception) {
 
 				showScreen = exception.getMessage();
 			}

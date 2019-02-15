@@ -1,5 +1,6 @@
 package br.com.ufabc.amem.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import br.com.ufabc.amem.exceptions.InvalidObject;
@@ -13,7 +14,7 @@ import br.com.ufabc.amem.util.Strings;
 public class FunctionController {
 
 	public String execute(FunctionAndParams functionAndParams) 
-			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
+			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated, IOException {
 
 		String showScreen = "";
 		Function function = functionAndParams.getFunction();

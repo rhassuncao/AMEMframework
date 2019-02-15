@@ -1,5 +1,6 @@
 package br.com.ufabc.amem.model.function;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
+import br.com.ufabc.amem.util.LogManager;
 
 public class createTie extends Function{
 	
@@ -29,8 +31,12 @@ public class createTie extends Function{
 
 	@Override
 	public String execute(String[] params)
-			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
+			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated, IOException {
 		// TODO Auto-generated method stub
+		
+		LogManager logManager = new LogManager();
+		logManager.writeLog(new FunctionAndParams(this, params));
+		
 		return null;
 	}
 

@@ -1,5 +1,6 @@
 package br.com.ufabc.amem.model.function;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public abstract class Function implements Executable {
 	}
 	
 	public abstract String execute(String[] params) 
-			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated;
+			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated, IOException;
 	
 	protected void validateParameters(String[] params) throws InvalidParameterNumber {
 		

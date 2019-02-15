@@ -36,6 +36,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -85,6 +86,7 @@ public class VisualInterface extends JFrame {
 	 */
 	public VisualInterface() {
 		
+		//TODO add clear button
 		ImageIcon img = new ImageIcon("src/br/com/ufabc/amem/images/database.png");
 		this.setIconImage(img.getImage());
 				
@@ -457,7 +459,7 @@ public class VisualInterface extends JFrame {
 				
 				showScreen += Strings.getString("invalidCommand");
 			}
-		} catch (InvalidObject | SQLException | InvalidParameterNumber | ObjectAlreadyCreated e) {
+		} catch (InvalidObject | SQLException | InvalidParameterNumber | ObjectAlreadyCreated | IOException e) {
 				
 			showScreen = e.getMessage();
 		}
@@ -482,7 +484,7 @@ public class VisualInterface extends JFrame {
 				
 				showScreen += functionAndParams.getFunction().execute(functionAndParams.getParams());
 				
-			} catch (InvalidObject | SQLException | InvalidParameterNumber | ObjectAlreadyCreated e) {
+			} catch (InvalidObject | SQLException | InvalidParameterNumber | ObjectAlreadyCreated | IOException e) {
 
 				showScreen += e.getMessage();
 			}
@@ -505,6 +507,5 @@ public class VisualInterface extends JFrame {
 	public String getTime() {
 		
 		return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS").format(new Date());
-		//return new Timestamp(new Date().getTime()) + "";
 	}
 }
