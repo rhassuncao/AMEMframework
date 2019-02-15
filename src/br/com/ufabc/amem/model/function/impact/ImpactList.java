@@ -21,6 +21,7 @@ public class ImpactList {
 	public Map<String,    String> procedureImpacts;
 	public Map<String,    String> triggerImpacts;
 	public Map<String,    String> constraintImpacts;
+	public Map<String,    String> viewtImpacts;
 	
 	public ImpactList() {
 		
@@ -33,6 +34,7 @@ public class ImpactList {
 		this.procedureImpacts  = new HashMap<String,    String>();
 		this.triggerImpacts    = new HashMap<String,    String>();
 		this.constraintImpacts = new HashMap<String,    String>();
+		this.viewtImpacts      = new HashMap<String,    String>();
 	}
 
 	public void addAnchorImpact(Anchor anchor, String operation) {
@@ -75,9 +77,14 @@ public class ImpactList {
 		this.triggerImpacts.put(trigger, operation);
 	}
 
-	public void addconstraintImpact(String constraint, String operation) {
+	public void addConstraintImpact(String constraint, String operation) {
 		
 		this.constraintImpacts.put(constraint, operation);
+	}
+	
+	public void addViewImpact(String view, String operation) {
+		
+		this.constraintImpacts.put(view, operation);
 	}
 
 	public Map<Anchor, String> getAnchorImpacts() {
@@ -123,6 +130,11 @@ public class ImpactList {
 	public Map<String, String> getConstraintsImpacts() {
 		
 		return constraintImpacts;
+	}
+	
+	public Map<String, String> getViewImpacts() {
+		
+		return this.viewtImpacts;
 	}
 	
 	@Override
