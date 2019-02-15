@@ -296,15 +296,16 @@ public class VisualInterface extends JFrame {
 				
 				if(functionAndParams.getFunction().getImpact(functionAndParams.getParams()) != null) {
 					
-					ImpactList impactList = functionAndParams.getFunction().getImpact(functionAndParams.getParams());
-					Map<Anchor, String>    anchorImpacts    = impactList.getAnchorImpacts();
-					Map<Tie, String>       tieImpacts       = impactList.getTieImpacts();
-					Map<Knot, String>      knotImpacts      = impactList.getKnotImpacts();
-					Map<Attribute, String> attributeImpacts = impactList.getAttributeImpacts();
-					
+
 					tree.setModel(new DefaultTreeModel(
 							new DefaultMutableTreeNode(Strings.getString("impacts")) {
 								{
+									ImpactList impactList = functionAndParams.getFunction().getImpact(functionAndParams.getParams());
+									Map<Anchor, String>    anchorImpacts    = impactList.getAnchorImpacts();
+									Map<Tie, String>       tieImpacts       = impactList.getTieImpacts();
+									Map<Knot, String>      knotImpacts      = impactList.getKnotImpacts();
+									Map<Attribute, String> attributeImpacts = impactList.getAttributeImpacts();
+									
 									if(!anchorImpacts.isEmpty() || !attributeImpacts.isEmpty() || !tieImpacts.isEmpty() || !knotImpacts.isEmpty()) {
 										
 										DefaultMutableTreeNode anchorModelingNode = new DefaultMutableTreeNode("Anchor Modeling");
@@ -356,26 +357,87 @@ public class VisualInterface extends JFrame {
 									add(anchorModelingNode);
 									}
 									
+									Map<String, String>    tableImpacts      = impactList.getTableImpacts();
+									Map<String, String>    functionImpacts   = impactList.getFunctionImpacts();
+									Map<String, String>    procedureImpacts  = impactList.getProcedureImpacts();
+									Map<String, String>    triggerImpacts    = impactList.getTriggerImpacts();
+									Map<String, String>    constraintImpacts = impactList.getConstraintImpacts();
+									Map<String, String>    viewImpacts       = impactList.getViewImpacts();
 									
-									//TODO fill the impact list for database objects
-									DefaultMutableTreeNode DataBaseNode        = new DefaultMutableTreeNode(Strings.getString("database"));
-									
-										DefaultMutableTreeNode tableNode       = new DefaultMutableTreeNode(Strings.getString("table"));
-										DataBaseNode.add(tableNode);
-										
-										DefaultMutableTreeNode functionNode    = new DefaultMutableTreeNode(Strings.getString("function"));
-										DataBaseNode.add(functionNode);
-										
-										DefaultMutableTreeNode procedureNode   = new DefaultMutableTreeNode(Strings.getString("procedure"));
-										DataBaseNode.add(procedureNode);
-										
-										DefaultMutableTreeNode triggerNode     = new DefaultMutableTreeNode(Strings.getString("trigger"));
-										DataBaseNode.add(triggerNode);
-										
-										DefaultMutableTreeNode constraintsNode = new DefaultMutableTreeNode(Strings.getString("constraints"));
-										DataBaseNode.add(constraintsNode);
+									if(!tableImpacts.isEmpty() || !functionImpacts.isEmpty() || !procedureImpacts.isEmpty() 
+											|| !triggerImpacts.isEmpty() || !constraintImpacts.isEmpty() || !viewImpacts.isEmpty()) {
+																				
 
-									add(DataBaseNode);
+										DefaultMutableTreeNode DataBaseNode        = new DefaultMutableTreeNode(Strings.getString("Database"));
+										
+										if(!tableImpacts.isEmpty()) {
+											
+											DefaultMutableTreeNode tableNode     = new DefaultMutableTreeNode(Strings.getString("Table"));
+											DataBaseNode.add(tableNode);
+											
+											for (Entry<String, String> impact : tableImpacts.entrySet()) {
+												
+												tableNode.add(new DefaultMutableTreeNode(impact.getKey() + ": " + impact.getValue()));
+											}
+										}
+										
+										if(!functionImpacts.isEmpty()) {
+											
+											DefaultMutableTreeNode functionNode     = new DefaultMutableTreeNode(Strings.getString("Function"));
+											DataBaseNode.add(functionNode);
+											
+											for (Entry<String, String> impact : functionImpacts.entrySet()) {
+												
+												functionNode.add(new DefaultMutableTreeNode(impact.getKey() + ": " + impact.getValue()));
+											}
+										}
+										
+										if(!procedureImpacts.isEmpty()) {
+											
+											DefaultMutableTreeNode procedureNode     = new DefaultMutableTreeNode(Strings.getString("Procedure"));
+											DataBaseNode.add(procedureNode);
+											
+											for (Entry<String, String> impact : procedureImpacts.entrySet()) {
+												
+												procedureNode.add(new DefaultMutableTreeNode(impact.getKey() + ": " + impact.getValue()));
+											}
+										}
+										
+										if(!triggerImpacts.isEmpty()) {
+											
+											DefaultMutableTreeNode triggerNode     = new DefaultMutableTreeNode(Strings.getString("Trigger"));
+											DataBaseNode.add(triggerNode);
+											
+											for (Entry<String, String> impact : triggerImpacts.entrySet()) {
+												
+												triggerNode.add(new DefaultMutableTreeNode(impact.getKey() + ": " + impact.getValue()));
+											}
+										}
+
+										if(!functionImpacts.isEmpty()) {
+											
+											DefaultMutableTreeNode constraintNode     = new DefaultMutableTreeNode(Strings.getString("Constraint"));
+											DataBaseNode.add(constraintNode);
+											
+											for (Entry<String, String> impact : constraintImpacts.entrySet()) {
+												
+												constraintNode.add(new DefaultMutableTreeNode(impact.getKey() + ": " + impact.getValue()));
+											}
+										}	
+
+										if(!viewImpacts.isEmpty()) {
+											
+											DefaultMutableTreeNode viewNode     = new DefaultMutableTreeNode(Strings.getString("View"));
+											DataBaseNode.add(viewNode);
+											
+											for (Entry<String, String> impact : viewImpacts.entrySet()) {
+												
+												viewNode.add(new DefaultMutableTreeNode(impact.getKey() + ": " + impact.getValue()));
+											}
+										}	
+
+										add(DataBaseNode);
+									}
 								}
 							}
 						)

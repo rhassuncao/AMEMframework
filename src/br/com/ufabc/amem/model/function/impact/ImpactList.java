@@ -127,7 +127,7 @@ public class ImpactList {
 		return triggerImpacts;
 	}
 
-	public Map<String, String> getConstraintsImpacts() {
+	public Map<String, String> getConstraintImpacts() {
 		
 		return constraintImpacts;
 	}
