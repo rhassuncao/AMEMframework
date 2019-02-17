@@ -87,7 +87,7 @@ public class VisualInterface extends JFrame {
 	public VisualInterface() {
 		
 		//TODO add clear button
-		ImageIcon img = new ImageIcon("src/br/com/ufabc/amem/images/database.png");
+		ImageIcon img = new ImageIcon("src/main/resources/images/database.png");
 		this.setIconImage(img.getImage());
 				
 		this.confirmFunction = null;
