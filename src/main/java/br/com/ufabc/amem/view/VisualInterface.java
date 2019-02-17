@@ -12,7 +12,6 @@ import br.com.ufabc.amem.model.function.FunctionAndParams;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.Strings;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -64,22 +63,6 @@ public class VisualInterface extends JFrame {
 	private static final String SYSTEM= "AMEM";
 	private JTextPane textPane;
 	private Style styleUser;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VisualInterface frame = new VisualInterface();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
