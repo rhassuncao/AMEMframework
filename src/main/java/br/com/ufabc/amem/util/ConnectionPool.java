@@ -36,7 +36,7 @@ public class ConnectionPool {
 		
 		try {
 			
-			in = new FileInputStream("src/br/com/ufabc/amem/util/db.properties");
+			in = new FileInputStream("src/main/resources/properties/db.properties");
 			props.load(in);
 			in.close();
 			

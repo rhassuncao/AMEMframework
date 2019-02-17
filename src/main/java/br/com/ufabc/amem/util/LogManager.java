@@ -25,7 +25,7 @@ public class LogManager {
 		
 		try {
 			
-			in = new FileInputStream("src/br/com/ufabc/amem/util/default.properties");
+			in = new FileInputStream("src/main/resources/properties/default.properties");
 			props.load(in);
 			in.close();
 			
