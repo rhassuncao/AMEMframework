@@ -1,8 +1,8 @@
 # Ignore que .java files
+bin/
 
 # Ignore the database properties
-/AMEMframework/src/main/java/br/com/ufabc/amem/util/db.properties
+
 
 # Ignore Gradle files
 /.gradle/
-/bin/
