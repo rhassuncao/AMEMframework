@@ -1,4 +1,3 @@
-
-bin/br/com/ufabc/amem/util/db\.properties
-
-src/br/com/ufabc/amem/util/db\.properties
+bin
+/AMEMframework/src/main/java/br/com/ufabc/amem/util/db.properties
+/.gradle/
