@@ -1,8 +1,5 @@
 # Ignore que .java files
-bin/
-
-# Ignore the database properties
-
+/bin/
 
 # Ignore Gradle files
 /.gradle/
