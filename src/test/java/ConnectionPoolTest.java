@@ -1,4 +1,4 @@
-package br.com.ufabc.amem.test;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
