@@ -4,21 +4,21 @@ String line = "createKnot(Colors, COS, RGHA, varchar(15), number(5), true, knot)
 String line = "createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)";
 String line = "historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992)";
 			
-drop sequence RGHA.CO_CONTAINER_CO_ID_SEQ;
+drop sequence teste2.CO_CONTAINER_CO_ID_SEQ;
 
-drop trigger RGHA.TRG_CO_CONTAINER_CO_ID;
+drop trigger teste2.TRG_CO_CONTAINER_CO_ID;
 
-drop table RGHA.CO_SIG_CONTAINER_SIGLA;
+drop table teste2.CO_SIG_CONTAINER_SIGLA;
 
-drop sequence RGHA.COS_Colors_COS_ID_SEQ;
+drop sequence teste2.COS_Colors_COS_ID_SEQ;
 
-drop trigger RGHA.TRG_COS_Colors_COS_ID;
+drop trigger teste2.TRG_COS_Colors_COS_ID;
 
-drop table RGHA.COS_COLORS;
+drop table teste2.COS_COLORS;
 
-drop table RGHA.CO_COL_CONTAINER_COLOR;
+drop table teste2.CO_COL_CONTAINER_COLOR;
 
-drop table RGHA.CO_CONTAINER;
+drop table teste2.CO_CONTAINER;
 
 desc RGHA.CO_CONTAINER;
 
