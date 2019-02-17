@@ -1,12 +1,11 @@
 package br.com.ufabc.amem.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,21 +19,8 @@ public class LogManager {
 	
 	public LogManager() {
 		
-		Properties props = new Properties();
-		FileInputStream in;
-		
-		try {
-			
-			in = new FileInputStream("src/main/resources/properties/default.properties");
-			props.load(in);
-			in.close();
-			
-		} catch (IOException e1) {
-
-			e1.printStackTrace();
-		}
-
-		this.logLocation = props.getProperty("logOutPutFolder");
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("properties.default");
+		this.logLocation = resourceBundle.getString("logOutPutFolder");
 	}
 	
 	@SuppressWarnings("unchecked")

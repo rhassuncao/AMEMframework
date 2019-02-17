@@ -25,12 +25,13 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import java.awt.Color;
 import javax.swing.JMenuItem;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -50,19 +51,19 @@ public class VisualInterface extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel            contentPane;
-	private JTextArea         textArea;
-	private StyledDocument    styledDocument;
-	private JButton           btnSend;
-	private JTree             tree;
-	private JButton           btnConfirm;
-	private JButton           btnDeny;
-	private FunctionAndParams confirmFunction;
-	private static final String USER = "RGHA";
-	private static final String SYSTEM= "AMEM";
-	private JTextPane textPane;
-	private Style styleUser;
+	private static final long   serialVersionUID = 1L;
+	private JPanel              contentPane;
+	private JTextArea           textArea;
+	private StyledDocument      styledDocument;
+	private JButton             btnSend;
+	private JTree               tree;
+	private JButton             btnConfirm;
+	private JButton             btnDeny;
+	private FunctionAndParams   confirmFunction;
+	private JTextPane           textPane;
+	private Style               styleUser;
+	private static final String USER   = "USER";
+	private static final String SYSTEM = "AMEM";
 
 	/**
 	 * Create the frame.
@@ -70,8 +71,8 @@ public class VisualInterface extends JFrame {
 	public VisualInterface() {
 		
 		//TODO add clear button
-		ImageIcon img = new ImageIcon("src/main/resources/images/database.png");
-		this.setIconImage(img.getImage());
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/database.png")));
+
 				
 		this.confirmFunction = null;
 		

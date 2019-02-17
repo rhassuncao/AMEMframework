@@ -1,13 +1,11 @@
 package br.com.ufabc.amem.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class ConnectionPool {
 
@@ -30,26 +28,14 @@ public class ConnectionPool {
 
 		instance       = new ConnectionPool();
 		connectionPool = new ArrayList<>(INITIAL_POOL_SIZE);
-		
-		Properties props = new Properties();
-		FileInputStream in;
-		
-		try {
 			
-			in = new FileInputStream("src/main/resources/properties/db.properties");
-			props.load(in);
-			in.close();
-			
-		} catch (IOException e1) {
+		ResourceBundle resourceBundle = ResourceBundle.getBundle("properties.db");
 
-			e1.printStackTrace();
-		}
-
-		ip       = props.getProperty("jdbc.ip");
-		port     = props.getProperty("jdbc.port");
-		username = props.getProperty("jdbc.username");
-		password = props.getProperty("jdbc.password");
-		base     = props.getProperty("jdbc.base");
+		ip       = resourceBundle.getString("jdbc.ip");
+		port     = resourceBundle.getString("jdbc.port");
+		username = resourceBundle.getString("jdbc.username");
+		password = resourceBundle.getString("jdbc.password");
+		base     = resourceBundle.getString("jdbc.base");
 
 		try {
 

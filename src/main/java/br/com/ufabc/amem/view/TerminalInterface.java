@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
 import br.com.ufabc.amem.exceptions.InvalidObject;
 import br.com.ufabc.amem.exceptions.InvalidParameterNumber;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
@@ -16,10 +15,6 @@ import br.com.ufabc.amem.util.Strings;
 public class TerminalInterface {
 
 	public static void run() {
-		
-		
-		JFrame window = new VisualInterface();
-		window.setVisible(true);
 
 		System.out.println(Strings.getString("welcome"));
 		
