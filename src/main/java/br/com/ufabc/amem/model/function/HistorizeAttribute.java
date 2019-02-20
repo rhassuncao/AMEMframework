@@ -42,7 +42,7 @@ public class HistorizeAttribute extends Function{
 
 	@Override
 	public ImpactList getImpact(String[] params) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

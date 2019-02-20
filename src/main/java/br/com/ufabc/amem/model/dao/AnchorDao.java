@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import br.com.ufabc.amem.model.am.Anchor;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
+import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
@@ -47,10 +48,41 @@ public class AnchorDao {
 		return anchor;
 	}
 
-	public ImpactList createAnchorImpacts(Anchor anchor) {
+	public ImpactList createAnchorImpacts(Anchor anchor) throws SQLException {
 		
 		ImpactList impactList = new ImpactList();
 		impactList.addAnchorImpact(anchor, "Create");
+		
+		DBSearch dbSearch = new DBSearch();
+		
+		ArrayList<String> procedureImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "PROCEDURE");
+		
+		for(int i = 0; i <= procedureImpacts.size(); i++) {
+			
+			impactList.addProcedureImpact(procedureImpacts.get(i), "Invalid");
+		}
+		
+		ArrayList<String> viewImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "VIEW");
+		
+		for(int i = 0; i <= viewImpacts.size(); i++) {
+			
+			impactList.addViewImpact(viewImpacts.get(i), "Invalid");
+		}
+		
+		ArrayList<String> functionImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "FUNCTION");
+		
+		for(int i = 0; i <= functionImpacts.size(); i++) {
+			
+			impactList.addFunctionImpact(functionImpacts.get(i), "Invalid");
+		}
+		
+		ArrayList<String> triggerImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "FUNCTION");
+		
+		for(int i = 0; i <= triggerImpacts.size(); i++) {
+			
+			impactList.addFunctionImpact(triggerImpacts.get(i), "Invalid");
+		}
+		
 		return impactList;
 	}
 }
