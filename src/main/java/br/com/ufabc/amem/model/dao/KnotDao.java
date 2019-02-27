@@ -55,6 +55,7 @@ public class KnotDao {
 		
 		ImpactList impactList = new ImpactList();
 		impactList.addKnotImpact(knot, "Create");
+		impactList.addTableImpact(knot.getTable(), "Create");
 		return impactList;
 	}
 }

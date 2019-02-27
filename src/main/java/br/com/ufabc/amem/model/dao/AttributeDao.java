@@ -156,6 +156,14 @@ public class AttributeDao {
 		
 		ImpactList impactList = new ImpactList();
 		impactList.addAttributeImpact(attribute, "Create");
+		impactList.addAnchorImpact(attribute.getAnchor(), "Link");
+		impactList.addTableImpact(attribute.getTable(), "Create");
+		
+		if(attribute.getKnot() != null) {
+			
+			impactList.addKnotImpact(attribute.getKnot(), "Link");
+		}
+		
 		return impactList;
 	}
 }

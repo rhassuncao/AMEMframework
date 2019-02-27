@@ -52,6 +52,7 @@ public class AnchorDao {
 		
 		ImpactList impactList = new ImpactList();
 		impactList.addAnchorImpact(anchor, "Create");
+		impactList.addTableImpact(anchor.getTable(), "Create");
 		
 		DBSearch dbSearch = new DBSearch();
 		
