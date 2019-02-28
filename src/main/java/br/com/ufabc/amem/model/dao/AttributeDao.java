@@ -11,6 +11,7 @@ import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
+import br.com.ufabc.amem.model.dao.oracleobjects.Unique;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
 import br.com.ufabc.amem.util.ConnectionPool;
 
@@ -76,7 +77,7 @@ public class AttributeDao {
 		}
 		
 		Table table = new Table();
-		table.createTable(schema, attributeTable, columns, FKs);
+		table.createTable(schema, attributeTable, columns, FKs, new ArrayList<Unique>());
 	}
 
 	/**

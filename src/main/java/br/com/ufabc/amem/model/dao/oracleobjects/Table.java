@@ -21,7 +21,8 @@ public class Table {
 	public void createTable(String schema, 
 							String table, 
 							ArrayList<Column> columns, 
-							ArrayList<FK> FKs) throws SQLException {
+							ArrayList<FK> FKs,
+							ArrayList<Unique> uniques) throws SQLException {
 		
 		String sql = "CREATE TABLE " + schema + "." + table + "(";
 		
@@ -43,7 +44,7 @@ public class Table {
 				sql += " NOT NULL";
 			}
 			
-			if(i+1 != columns.size() || !FKs.isEmpty() || !primaryKeys.isEmpty()) {
+			if(i+1 != columns.size() || !FKs.isEmpty() || !primaryKeys.isEmpty() || !uniques.isEmpty()) {
 				
 				sql += ",";
 			}
@@ -57,7 +58,20 @@ public class Table {
 				+  "(" + fk.getColumn().getName() + ")" 
 				+ "  REFERENCES " + fk.getExternalTable() + "(" + fk.getExternalColumn().getName() + ")";
 			
-			if(j+1 != FKs.size() || !primaryKeys.isEmpty()) {
+			if(j+1 != FKs.size() || !primaryKeys.isEmpty() || !uniques.isEmpty()) {
+				
+				sql += ",";
+			}
+		}
+		
+		for (int k = 0; k < uniques.size(); k++) {
+			
+			Unique unique = uniques.get(k);
+			
+			sql += "CONSTRAINT " + unique.getName() + " UNIQUE "
+				+  "(" + unique.getColumn().getName() + ")";
+			
+			if(k+1 != uniques.size() || !primaryKeys.isEmpty()) {
 				
 				sql += ",";
 			}
@@ -67,11 +81,11 @@ public class Table {
 			 
 			sql += " CONSTRAINT PK_" + table +  " PRIMARY KEY (";
 			
-			for (int k = 0; k < primaryKeys.size(); k++) {
+			for (int l = 0; l < primaryKeys.size(); l++) {
 				
-				sql += primaryKeys.get(k);
+				sql += primaryKeys.get(l);
 				
-				if(k+1 != primaryKeys.size()) {
+				if(l+1 != primaryKeys.size()) {
 					
 					sql += ",";
 				}

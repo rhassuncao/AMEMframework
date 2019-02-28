@@ -8,6 +8,7 @@ import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
+import br.com.ufabc.amem.model.dao.oracleobjects.Unique;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public class KnotDao {
@@ -32,7 +33,7 @@ public class KnotDao {
 		columns.add(columnDesc);
 		
 		Table table2 = new Table();
-		table2.createTable(schema, knotTable, columns, new ArrayList<FK>());
+		table2.createTable(schema, knotTable, columns, new ArrayList<FK>(), new ArrayList<Unique>());
 	}
 	
 	/**

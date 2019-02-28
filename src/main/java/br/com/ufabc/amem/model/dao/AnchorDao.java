@@ -8,6 +8,7 @@ import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
+import br.com.ufabc.amem.model.dao.oracleobjects.Unique;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public class AnchorDao {
@@ -28,7 +29,7 @@ public class AnchorDao {
 		columns.add(column);
 		
 		Table table2           = new Table();
-		table2.createTable(schema, table, columns, new ArrayList<FK>());
+		table2.createTable(schema, table, columns, new ArrayList<FK>(), new ArrayList<Unique>());
 	}
 
 	/**
