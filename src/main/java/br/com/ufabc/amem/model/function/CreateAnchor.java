@@ -13,6 +13,9 @@ import br.com.ufabc.amem.util.Strings;
 
 public class CreateAnchor extends Function{
 	
+	/**
+	 * 
+	 */
 	public CreateAnchor(){
 		
 		this.name           = "createAnchor";
@@ -26,6 +29,9 @@ public class CreateAnchor extends Function{
 		this.parameters.add("description");
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#execute(java.lang.String[])
+	 */
 	@Override
 	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, IOException {
 		
@@ -39,6 +45,9 @@ public class CreateAnchor extends Function{
 		return Strings.getString("objectCreated");
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
+	 */
 	@Override
 	public ImpactList getImpact(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		

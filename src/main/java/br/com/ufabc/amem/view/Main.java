@@ -2,8 +2,11 @@ package br.com.ufabc.amem.view;
 
 import javax.swing.JFrame;
 
-public class Amem {
+public class Main {
 	
+/**
+ * @param args
+ */
 public static void main(String[] args) {
 		
 		if (args.length > 1 && args[0].equalsIgnoreCase("SCRIPT")) {

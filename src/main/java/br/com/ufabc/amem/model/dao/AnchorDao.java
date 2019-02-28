@@ -12,6 +12,10 @@ import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public class AnchorDao {
 
+	/**
+	 * @param anchor
+	 * @throws SQLException
+	 */
 	public void createAnchor(Anchor anchor) throws SQLException {
 
 		String schema     = anchor.getCapsule().getName();
@@ -27,6 +31,11 @@ public class AnchorDao {
 		table2.createTable(schema, table, columns, new ArrayList<FK>());
 	}
 
+	/**
+	 * @param anchor
+	 * @return
+	 * @throws SQLException
+	 */
 	public Anchor selectAnchor(Anchor anchor) throws SQLException {
 
 		Table table        = new Table();
@@ -48,41 +57,25 @@ public class AnchorDao {
 		return anchor;
 	}
 
+	/**
+	 * @param anchor
+	 * @return
+	 * @throws SQLException
+	 */
 	public ImpactList createAnchorImpacts(Anchor anchor) throws SQLException {
 		
 		ImpactList impactList = new ImpactList();
-		impactList.addAnchorImpact(anchor, "Create");
-		impactList.addTableImpact(anchor.getTable(), "Create");
 		
 		DBSearch dbSearch = new DBSearch();
 		
-		ArrayList<String> procedureImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "PROCEDURE");
+		impactList.setProcedureImpacts(dbSearch.objectImpacts(anchor, "PROCEDURE"));
+		impactList.setFunctionImpacts( dbSearch.objectImpacts(anchor, "FUNCTION"));
+		impactList.setTableImpacts(    dbSearch.objectImpacts(anchor, "TABLE"));
+		impactList.setViewImpacts(     dbSearch.objectImpacts(anchor, "VIEW"));
+		impactList.setTriggerImpacts(  dbSearch.objectImpacts(anchor, "TRIGGER"));
 		
-		for(int i = 0; i <= procedureImpacts.size(); i++) {
-			
-			impactList.addProcedureImpact(procedureImpacts.get(i), "Invalid");
-		}
-		
-		ArrayList<String> viewImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "VIEW");
-		
-		for(int i = 0; i <= viewImpacts.size(); i++) {
-			
-			impactList.addViewImpact(viewImpacts.get(i), "Invalid");
-		}
-		
-		ArrayList<String> functionImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "FUNCTION");
-		
-		for(int i = 0; i <= functionImpacts.size(); i++) {
-			
-			impactList.addFunctionImpact(functionImpacts.get(i), "Invalid");
-		}
-		
-		ArrayList<String> triggerImpacts =  dbSearch.object(anchor.getCapsule().getName(), anchor.getTable(), "FUNCTION");
-		
-		for(int i = 0; i <= triggerImpacts.size(); i++) {
-			
-			impactList.addFunctionImpact(triggerImpacts.get(i), "Invalid");
-		}
+		impactList.addAnchorImpact(anchor,           "Create");
+		impactList.addTableImpact(anchor.getTable(), "Create");
 		
 		return impactList;
 	}

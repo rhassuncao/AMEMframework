@@ -9,6 +9,13 @@ import br.com.ufabc.amem.util.ConnectionPool;
 public class Trigger {
 	
 	//TODO this may have injection
+	/**
+	 * @param schema
+	 * @param triggerName
+	 * @param table
+	 * @param field
+	 * @param sequenceName
+	 */
 	protected void createAutoIncrementTrigger(String schema, 
 								 			  String triggerName, 
 								 			  String table, 

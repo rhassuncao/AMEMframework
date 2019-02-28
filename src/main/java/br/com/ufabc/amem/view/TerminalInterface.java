@@ -14,6 +14,9 @@ import br.com.ufabc.amem.util.Strings;
 
 public class TerminalInterface {
 
+	/**
+	 * 
+	 */
 	public static void run() {
 
 		System.out.println(Strings.getString("welcome"));

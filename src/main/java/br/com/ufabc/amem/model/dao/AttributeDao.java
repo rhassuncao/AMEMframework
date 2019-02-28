@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.model.am.Attribute;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
+import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
@@ -15,6 +16,10 @@ import br.com.ufabc.amem.util.ConnectionPool;
 
 public class AttributeDao {
 
+	/**
+	 * @param attribute
+	 * @throws SQLException
+	 */
 	public void createAttribute(Attribute attribute) throws SQLException {
 
 		String schema           = attribute.getCapsule().getName();
@@ -74,6 +79,11 @@ public class AttributeDao {
 		table.createTable(schema, attributeTable, columns, FKs);
 	}
 
+	/**
+	 * @param attribute
+	 * @return
+	 * @throws SQLException
+	 */
 	public Attribute selectAttribute(Attribute attribute) throws SQLException {
 		
 		Table table           = new Table();
@@ -134,6 +144,13 @@ public class AttributeDao {
 	
 	//TODO this may have injection
 	//TODO wrong way to do it because de valid from must be part of pk
+	/**
+	 * @param attribute
+	 * @param defaultTime
+	 * @param defaultTimeFormat
+	 * @throws ObjectAlreadyCreated
+	 * @throws SQLException
+	 */
 	public void historizeAttribute(Attribute attribute, String defaultTime, String defaultTimeFormat) throws ObjectAlreadyCreated, SQLException {
 
 		String schema         = attribute.getCapsule().getName();
@@ -152,12 +169,26 @@ public class AttributeDao {
 		ConnectionPool.getInstance().releaseConnection(conn);
 	}
 
-	public ImpactList createAttributeImpact(Attribute attribute) {
+	/**
+	 * @param attribute
+	 * @return
+	 * @throws SQLException
+	 */
+	public ImpactList createAttributeImpact(Attribute attribute) throws SQLException {
 		
 		ImpactList impactList = new ImpactList();
-		impactList.addAttributeImpact(attribute, "Create");
+		
+		DBSearch dbSearch = new DBSearch();
+		
+		impactList.setProcedureImpacts(dbSearch.objectImpacts(attribute, "PROCEDURE"));
+		impactList.setFunctionImpacts( dbSearch.objectImpacts(attribute, "FUNCTION"));
+		impactList.setTableImpacts(    dbSearch.objectImpacts(attribute, "TABLE"));
+		impactList.setViewImpacts(     dbSearch.objectImpacts(attribute, "VIEW"));
+		impactList.setTriggerImpacts(  dbSearch.objectImpacts(attribute, "TRIGGER"));
+		
+		impactList.addAttributeImpact(attribute,          "Create");
 		impactList.addAnchorImpact(attribute.getAnchor(), "Link");
-		impactList.addTableImpact(attribute.getTable(), "Create");
+		impactList.addTableImpact(attribute.getTable(),   "Create");
 		
 		if(attribute.getKnot() != null) {
 			

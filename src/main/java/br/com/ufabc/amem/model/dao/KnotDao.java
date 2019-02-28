@@ -5,12 +5,17 @@ import java.util.ArrayList;
 
 import br.com.ufabc.amem.model.am.Knot;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
+import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
 
 public class KnotDao {
 
+	/**
+	 * @param knot
+	 * @throws SQLException
+	 */
 	public void createKnot(Knot knot) throws SQLException {
 
 		String schema          = knot.getCapsule().getName();
@@ -30,6 +35,11 @@ public class KnotDao {
 		table2.createTable(schema, knotTable, columns, new ArrayList<FK>());
 	}
 	
+	/**
+	 * @param knot
+	 * @return
+	 * @throws SQLException
+	 */
 	public Knot selectKnot(Knot knot) throws SQLException {
 		
 		Table table      = new Table();
@@ -51,11 +61,26 @@ public class KnotDao {
 		return knot;
 	}
 
-	public ImpactList createKnotImpact(Knot knot) {
+	/**
+	 * @param knot
+	 * @return
+	 * @throws SQLException
+	 */
+	public ImpactList createKnotImpact(Knot knot) throws SQLException {
 		
 		ImpactList impactList = new ImpactList();
-		impactList.addKnotImpact(knot, "Create");
+		
+		DBSearch dbSearch = new DBSearch();
+		
+		impactList.setProcedureImpacts(dbSearch.objectImpacts(knot, "PROCEDURE"));
+		impactList.setFunctionImpacts( dbSearch.objectImpacts(knot, "FUNCTION"));
+		impactList.setTableImpacts(    dbSearch.objectImpacts(knot, "TABLE"));
+		impactList.setViewImpacts(     dbSearch.objectImpacts(knot, "VIEW"));
+		impactList.setTriggerImpacts(  dbSearch.objectImpacts(knot, "TRIGGER"));
+		
+		impactList.addKnotImpact(knot,             "Create");
 		impactList.addTableImpact(knot.getTable(), "Create");
+		
 		return impactList;
 	}
 }

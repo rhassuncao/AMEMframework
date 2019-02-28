@@ -15,14 +15,24 @@ import br.com.ufabc.amem.model.function.FunctionAndParams;
 
 public class LogManager {
 	
+	/**
+	 * 
+	 */
 	private String logLocation;
 	
+	/**
+	 * 
+	 */
 	public LogManager() {
 		
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("properties.default");
 		this.logLocation = resourceBundle.getString("logOutPutFolder");
 	}
 	
+	/**
+	 * @param functionAndParams
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	public void writeLog(FunctionAndParams functionAndParams) throws IOException {
 		

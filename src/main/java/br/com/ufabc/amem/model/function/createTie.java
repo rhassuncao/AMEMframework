@@ -12,6 +12,9 @@ import br.com.ufabc.amem.util.LogManager;
 
 public class createTie extends Function{
 	
+	/**
+	 * 
+	 */
 	public createTie() {
 		
 		this.name           = "createTie";
@@ -29,6 +32,9 @@ public class createTie extends Function{
 		this.parameters.add("timeRange");
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#execute(java.lang.String[])
+	 */
 	@Override
 	public String execute(String[] params)
 			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated, IOException {
@@ -40,6 +46,9 @@ public class createTie extends Function{
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
+	 */
 	@Override
 	public ImpactList getImpact(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		// TODO Auto-generated method stub

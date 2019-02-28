@@ -11,6 +11,21 @@ import br.com.ufabc.amem.util.Validate;
 
 public class TieController {
 
+	/**
+	 * @param capsuleAnchor1String
+	 * @param anchor1String
+	 * @param role1String
+	 * @param identifier1NString
+	 * @param capsuleAnchor2String
+	 * @param anchor2String
+	 * @param role2String
+	 * @param identifier2NString
+	 * @param capsuleString
+	 * @param descriptionString
+	 * @param timeRangeString
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public void createTie(String capsuleAnchor1String, 
 			   			  String anchor1String, 
 			   			  String role1String, 

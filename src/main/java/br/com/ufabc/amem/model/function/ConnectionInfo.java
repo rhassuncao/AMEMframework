@@ -10,6 +10,9 @@ import br.com.ufabc.amem.util.ConnectionPool;
 
 public class ConnectionInfo extends Function{
 	
+	/**
+	 * 
+	 */
 	public ConnectionInfo(){
 		
 		this.name        = "ConnectionInfo";
@@ -17,12 +20,18 @@ public class ConnectionInfo extends Function{
 		this.parameters  = new ArrayList<String>();
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#execute(java.lang.String[])
+	 */
 	@Override
 	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		
 		return ConnectionPool.getUrl();
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
+	 */
 	@Override
 	public ImpactList getImpact(String[] params) {
 

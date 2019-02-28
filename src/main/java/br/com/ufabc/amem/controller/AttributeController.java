@@ -14,6 +14,20 @@ import br.com.ufabc.amem.util.Validate;
 
 public class AttributeController {
 
+	/**
+	 * @param anchorCapsuleString
+	 * @param anchorString
+	 * @param descriptor
+	 * @param mnemonicString
+	 * @param capsuleString
+	 * @param dataRange
+	 * @param description
+	 * @param timeRange
+	 * @param StringCapsuleKnot
+	 * @param knotString
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public void createAttribute(String  anchorCapsuleString,
 							   String  anchorString,
 			 				   String  descriptor, 
@@ -46,6 +60,21 @@ public class AttributeController {
 		attributeDao.createAttribute(attribute);
 	}
 	
+	/**
+	 * @param anchorCapsuleString
+	 * @param anchorString
+	 * @param descriptor
+	 * @param mnemonicString
+	 * @param capsuleString
+	 * @param dataRange
+	 * @param description
+	 * @param timeRange
+	 * @param StringCapsuleKnot
+	 * @param knotString
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public ImpactList createAttributeImpact(String  anchorCapsuleString,
 			   						  String  anchorString,
 			   						  String  descriptor, 
@@ -77,6 +106,17 @@ public class AttributeController {
 		return new AttributeDao().createAttributeImpact(attribute);
 	}
 
+	/**
+	 * @param attributeCapsuleString
+	 * @param attributeString
+	 * @param anchorCapsuleString
+	 * @param timeRange
+	 * @param defaultTime
+	 * @param defaultTimeFormat
+	 * @throws InvalidObject
+	 * @throws ObjectAlreadyCreated
+	 * @throws SQLException
+	 */
 	public void historizeAttribute(String attributeCapsuleString, 
 								   String attributeString,
 								   String anchorCapsuleString,

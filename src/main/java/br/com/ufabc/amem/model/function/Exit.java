@@ -11,6 +11,9 @@ import br.com.ufabc.amem.util.Strings;
 
 public class Exit extends Function{
 	
+	/**
+	 * 
+	 */
 	public Exit(){
 		
 		this.name        = "Exit";
@@ -18,6 +21,9 @@ public class Exit extends Function{
 		this.parameters  = new ArrayList<String>();
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#execute(java.lang.String[])
+	 */
 	@Override
 	public String execute(String[] params)
 			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated {
@@ -25,6 +31,9 @@ public class Exit extends Function{
 		return Strings.getString("bye") + "\n";
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
+	 */
 	@Override
 	public ImpactList getImpact(String[] params) {
 		// TODO Auto-generated method stub

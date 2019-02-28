@@ -11,6 +11,9 @@ import br.com.ufabc.amem.util.Strings;
 
 public class Help extends Function{
 	
+	/**
+	 * 
+	 */
 	public Help(){
 		
 		this.name        = "Help";
@@ -18,6 +21,9 @@ public class Help extends Function{
 		this.parameters  = new ArrayList<String>();
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#execute(java.lang.String[])
+	 */
 	@Override
 	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber {
 		
@@ -51,6 +57,9 @@ public class Help extends Function{
 		return returnString;
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
+	 */
 	@Override
 	public ImpactList getImpact(String[] params) {
 

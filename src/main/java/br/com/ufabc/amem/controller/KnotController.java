@@ -11,6 +11,17 @@ import br.com.ufabc.amem.util.Validate;
 
 public class KnotController {
 
+	/**
+	 * @param descriptorString
+	 * @param mnemonicString
+	 * @param capsuleString
+	 * @param dataRange
+	 * @param identityString
+	 * @param generatorString
+	 * @param description
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public void createKnot(String descriptorString, 
 						   String mnemonicString, 
 						   String capsuleString,
@@ -41,6 +52,18 @@ public class KnotController {
 		knotDao.createKnot(knot);
 	}
 
+	/**
+	 * @param descriptorString
+	 * @param mnemonicString
+	 * @param capsuleString
+	 * @param dataRange
+	 * @param identityString
+	 * @param generatorString
+	 * @param description
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public ImpactList createKnotImpact(String descriptorString, 
 									   String mnemonicString, 
 									   String capsuleString,

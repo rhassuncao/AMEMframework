@@ -11,6 +11,16 @@ import br.com.ufabc.amem.util.Validate;
 
 public class AnchorController {
 	
+	/**
+	 * @param descriptorString
+	 * @param mnemonicString
+	 * @param capsuleString
+	 * @param identityString
+	 * @param generatorString
+	 * @param description
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public void createAnchor(String descriptorString, 
 							 String mnemonicString, 
 							 String capsuleString, 
@@ -37,6 +47,17 @@ public class AnchorController {
 		new AnchorDao().createAnchor(anchor);
 	}
 
+	/**
+	 * @param descriptorString
+	 * @param mnemonicString
+	 * @param capsuleString
+	 * @param identityString
+	 * @param generatorString
+	 * @param description
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public ImpactList createAnchorImpacts(String descriptorString, 
 			 String mnemonicString, 
 			 String capsuleString, 

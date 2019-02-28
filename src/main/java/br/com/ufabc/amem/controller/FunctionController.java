@@ -13,6 +13,15 @@ import br.com.ufabc.amem.util.Strings;
 
 public class FunctionController {
 
+	/**
+	 * @param functionAndParams
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 * @throws InvalidParameterNumber
+	 * @throws ObjectAlreadyCreated
+	 * @throws IOException
+	 */
 	public String execute(FunctionAndParams functionAndParams) 
 			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated, IOException {
 
@@ -32,6 +41,10 @@ public class FunctionController {
 		return showScreen;
 	}
 
+	/**
+	 * @param line
+	 * @return
+	 */
 	public FunctionAndParams read(String line) {
 
 		String[] params = null;

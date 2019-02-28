@@ -11,6 +11,13 @@ import br.com.ufabc.amem.util.ConnectionPool;
 public class Table {
 	
 	// TODO this may have injection
+	/**
+	 * @param schema
+	 * @param table
+	 * @param columns
+	 * @param FKs
+	 * @throws SQLException
+	 */
 	public void createTable(String schema, 
 							String table, 
 							ArrayList<Column> columns, 
@@ -90,6 +97,12 @@ public class Table {
 		}
 	}
 	
+	/**
+	 * @param schema
+	 * @param table
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Column> selectTable(String schema, String table) throws SQLException {
 		
 		Connection conn = ConnectionPool.getInstance().getConnection();

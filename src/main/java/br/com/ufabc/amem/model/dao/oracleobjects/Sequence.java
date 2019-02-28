@@ -10,6 +10,11 @@ import br.com.ufabc.amem.util.Validate;
 public class Sequence {
 
 	// TODO this may have injection
+	/**
+	 * @param schema
+	 * @param name
+	 * @throws SQLException
+	 */
 	public void createSequence(String schema, String name) throws SQLException {
 
 		name = new Validate().validateSequenceName(name);

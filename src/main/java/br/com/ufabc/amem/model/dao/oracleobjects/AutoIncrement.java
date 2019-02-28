@@ -6,6 +6,12 @@ import br.com.ufabc.amem.util.Validate;
 
 public class AutoIncrement {
 
+	/**
+	 * @param schema
+	 * @param table
+	 * @param primaryKey
+	 * @throws SQLException
+	 */
 	public void createAutoIncrement(String schema, String table, String primaryKey) throws SQLException {
 
 		//Create the sequence

@@ -51,22 +51,64 @@ public class VisualInterface extends JFrame {
 	/**
 	 * 
 	 */
+	/**
+	 * 
+	 */
 	private static final long   serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private JPanel              contentPane;
+	/**
+	 * 
+	 */
 	private JTextArea           textArea;
+	/**
+	 * 
+	 */
 	private StyledDocument      styledDocument;
+	/**
+	 * 
+	 */
 	private JButton             btnSend;
+	/**
+	 * 
+	 */
 	private JTree               tree;
+	/**
+	 * 
+	 */
 	private JButton             btnConfirm;
+	/**
+	 * 
+	 */
 	private JButton             btnDeny;
+	/**
+	 * 
+	 */
 	private FunctionAndParams   confirmFunction;
+	/**
+	 * 
+	 */
 	private JTextPane           textPane;
+	/**
+	 * 
+	 */
 	private Style               styleUser;
+	/**
+	 * 
+	 */
 	private static final String USER   = "USER";
+	/**
+	 * 
+	 */
 	private static final String SYSTEM = "AMEM";
 
 	/**
 	 * Create the frame.
+	 */
+	/**
+	 * 
 	 */
 	public VisualInterface() {
 		
@@ -254,6 +296,9 @@ public class VisualInterface extends JFrame {
 		textArea.addKeyListener(keyListener);
 	}
 	
+	/**
+	 * 
+	 */
 	@SuppressWarnings("serial")
 	private void sendCommands() {
 		
@@ -458,6 +503,9 @@ public class VisualInterface extends JFrame {
 		}
 	}
 	
+	/**
+	 * @param functionAndParams
+	 */
 	public void executeFunctionWriteReturn(FunctionAndParams functionAndParams) {
 		
 		String showScreen = "";
@@ -488,6 +536,9 @@ public class VisualInterface extends JFrame {
 		}
 	}
 	
+	/**
+	 * @return
+	 */
 	public String getTime() {
 		
 		return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS").format(new Date());

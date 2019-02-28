@@ -14,6 +14,9 @@ import br.com.ufabc.amem.util.Strings;
 
 public class HistorizeAttribute extends Function{
 	
+	/**
+	 * 
+	 */
 	public HistorizeAttribute(){
 		
 		this.name           = "historizeAttribute";
@@ -27,6 +30,9 @@ public class HistorizeAttribute extends Function{
 		this.parameters.add("defaultTimeFormat");
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#execute(java.lang.String[])
+	 */
 	@Override
 	public String execute(String[] params) throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated, IOException {
 		
@@ -40,6 +46,9 @@ public class HistorizeAttribute extends Function{
 		return Strings.getString("objectCreated");
 	}
 
+	/* (non-Javadoc)
+	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
+	 */
 	@Override
 	public ImpactList getImpact(String[] params) {
 		

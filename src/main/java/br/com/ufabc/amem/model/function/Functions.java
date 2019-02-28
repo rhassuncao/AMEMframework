@@ -5,6 +5,9 @@ import java.util.TreeMap;
 
 public class Functions {
 	
+	/**
+	 * 
+	 */
 	private static Map<String, Function> functions;
 
 	static {
@@ -21,16 +24,26 @@ public class Functions {
 		registerFunction(new createTie());
 	}
 
+	/**
+	 * @return
+	 */
 	public static Map<String, Function> getAllFunctions(){
 		
 		return functions;
 	}
 	
+	/**
+	 * @param function
+	 */
 	public static void registerFunction(Function function) {
 		
 		functions.put(function.getName().toUpperCase(), function);
 	}
 	
+	/**
+	 * @param functionName
+	 * @return
+	 */
 	public static Function getFunction(String functionName) {
 		
 		return functions.get(functionName);

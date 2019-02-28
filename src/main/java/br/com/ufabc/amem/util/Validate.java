@@ -16,6 +16,13 @@ import br.com.ufabc.amem.model.dao.KnotDao;
 
 public class Validate {
 	
+	/**
+	 * @param anchorString
+	 * @param capsule
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public Anchor validateAnchor(String anchorString, Capsule capsule) throws InvalidObject, SQLException {
 		
 		//TODO uppercase is only at oracle
@@ -31,6 +38,12 @@ public class Validate {
 		return anchor;
 	}
 	
+	/**
+	 * @param capsuleString
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public Capsule validateCapsule(String capsuleString) throws InvalidObject, SQLException {
 		
 		//TODO uppercase is only at oracle
@@ -53,6 +66,12 @@ public class Validate {
 	}
 
 	//TODO uppercase is only at oracle
+	/**
+	 * @param mnemonic
+	 * @param object
+	 * @return
+	 * @throws InvalidObject
+	 */
 	public String validateMnemonic(String mnemonic, AnchorObject object) throws InvalidObject {
 
 		if(object instanceof Anchor || object instanceof Tie) {
@@ -72,6 +91,13 @@ public class Validate {
 	}
 
 	//TODO uppercase is only at oracle
+	/**
+	 * @param knotString
+	 * @param capsule
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public Knot validateKnot(String knotString, Capsule capsule) throws InvalidObject, SQLException {
 		
 		if(knotString.equals("null")) {
@@ -91,6 +117,11 @@ public class Validate {
 		return knot;
 	}
 	
+	/**
+	 * @param description
+	 * @return
+	 * @throws InvalidObject
+	 */
 	public String validateDescription (String description) throws InvalidObject {
 		
 		//biggest description size for oracle
@@ -101,21 +132,37 @@ public class Validate {
 		return description;
 	}
 	
+	/**
+	 * @param identity
+	 * @return
+	 */
 	public String  validateIdentity(String identity) {
 		//TODO
 		return identity;
 	}
 
+	/**
+	 * @param generatorString
+	 * @return
+	 */
 	public boolean validateGenerator(String generatorString) {
 		
 		return Boolean.valueOf(generatorString);
 	}
 
+	/**
+	 * @param dataRange
+	 * @return
+	 */
 	public String validateDataRange(String dataRange) {
 		// TODO
 		return dataRange;
 	}
 
+	/**
+	 * @param timeRange
+	 * @return
+	 */
 	public String validateTimeRange(String timeRange) {
 		
 		if(timeRange.equals("null")){
@@ -126,11 +173,23 @@ public class Validate {
 		return timeRange;
 	}
 
+	/**
+	 * @param descriptorString
+	 * @return
+	 */
 	public String validateDescriptor(String descriptorString) {
 		// TODO
 		return descriptorString;
 	}
 
+	/**
+	 * @param attributeCapsule
+	 * @param attributeString
+	 * @param anchorCapsule
+	 * @return
+	 * @throws InvalidObject
+	 * @throws SQLException
+	 */
 	public Attribute validateAttribute(Capsule attributeCapsule, 
 									   String attributeString,
 									   Capsule anchorCapsule) throws InvalidObject, SQLException {
@@ -153,16 +212,28 @@ public class Validate {
 		return attribute;
 	}
 
+	/**
+	 * @param role
+	 * @return
+	 */
 	public String validateRole(String role) {
 		// TODO Auto-generated method stub
 		return role;
 	}
 
+	/**
+	 * @param identifierNString
+	 * @return
+	 */
 	public boolean validateIdentifierN(String identifierNString) {
 
 		return Boolean.valueOf(identifierNString);
 	}
 
+	/**
+	 * @param sequenceName
+	 * @return
+	 */
 	public String validateSequenceName(String sequenceName) {
 		
 		//max oracle sequence name size
@@ -174,6 +245,10 @@ public class Validate {
 		return sequenceName;
 	}
 
+	/**
+	 * @param defaultTimeFormat
+	 * @return
+	 */
 	public String validateTimeFormat(String defaultTimeFormat) {
 		// TODO Auto-generated method stub
 		return defaultTimeFormat;
