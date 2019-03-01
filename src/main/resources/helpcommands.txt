@@ -1,7 +1,9 @@
 String line = "createAnchor(Container, CO, RGHA, number(10), true, container)";
+String line = "createAnchor(Viagem, VI, RGHA, number(10), true, viagem)";
 String line = "createAttribute( RGHA, CO_CONTAINER, Sigla, SIG, RGHA, varchar(10), descricao, null, null, null)";
 String line = "createKnot(Colors, COS, RGHA, varchar(15), number(5), true, knot)";
 String line = "createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)";
+String line = "createTie(RGHA, CO_Container, travel, true, RGHA, VI_Viagem, in, true, RGHA, link, TIMESTAMP(3))";
 String line = "historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992)";
 			
 drop sequence teste2.CO_CONTAINER_CO_ID_SEQ;

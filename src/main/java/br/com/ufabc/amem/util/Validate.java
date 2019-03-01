@@ -46,7 +46,6 @@ public class Validate {
 	 */
 	public Capsule validateCapsule(String capsuleString) throws InvalidObject, SQLException {
 		
-		//TODO uppercase is only at oracle
 		//TODO I did it because a knot capsule can be null in the attribute creatin
 		//But what is someone put an anchor capsule as null?
 		if(capsuleString.equals("null")) {

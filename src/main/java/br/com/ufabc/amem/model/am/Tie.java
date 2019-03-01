@@ -1,5 +1,9 @@
 package br.com.ufabc.amem.model.am;
 
+/**
+ * @author RGHA
+ *
+ */
 public class Tie  extends AnchorObject{
 	
 	/**
@@ -280,11 +284,12 @@ public class Tie  extends AnchorObject{
 				+ this.getRole2() ;
 	}
 
+
 	/* (non-Javadoc)
 	 * @see br.com.ufabc.amem.model.am.AnchorObject#getDescriptor()
 	 */
 	public String getDescriptor() {
-		// TODO Auto-generated method stub
-		return "";
+		
+		return this.getTable();
 	}
 }

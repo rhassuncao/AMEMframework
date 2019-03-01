@@ -220,6 +220,7 @@ public class VisualInterface extends JFrame {
 		menuBar.add(mntmHelp);
 		
 		this.btnConfirm = new JButton(Strings.getString("confirm"));
+		
 		this.btnConfirm.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
@@ -244,6 +245,7 @@ public class VisualInterface extends JFrame {
 		contentPane.add(btnConfirm);
 		
 		this.btnDeny = new JButton(Strings.getString("cancel"));
+		
 		btnDeny.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -399,11 +401,11 @@ public class VisualInterface extends JFrame {
 											|| !triggerImpacts.isEmpty() || !constraintImpacts.isEmpty() || !viewImpacts.isEmpty()) {
 																				
 
-										DefaultMutableTreeNode DataBaseNode        = new DefaultMutableTreeNode(Strings.getString("Database"));
+										DefaultMutableTreeNode DataBaseNode        = new DefaultMutableTreeNode(Strings.getString("database"));
 										
 										if(!tableImpacts.isEmpty()) {
 											
-											DefaultMutableTreeNode tableNode     = new DefaultMutableTreeNode(Strings.getString("Table"));
+											DefaultMutableTreeNode tableNode     = new DefaultMutableTreeNode(Strings.getString("table"));
 											DataBaseNode.add(tableNode);
 											
 											for (Entry<String, String> impact : tableImpacts.entrySet()) {
@@ -414,7 +416,7 @@ public class VisualInterface extends JFrame {
 										
 										if(!functionImpacts.isEmpty()) {
 											
-											DefaultMutableTreeNode functionNode     = new DefaultMutableTreeNode(Strings.getString("Function"));
+											DefaultMutableTreeNode functionNode     = new DefaultMutableTreeNode(Strings.getString("function"));
 											DataBaseNode.add(functionNode);
 											
 											for (Entry<String, String> impact : functionImpacts.entrySet()) {
@@ -425,7 +427,7 @@ public class VisualInterface extends JFrame {
 										
 										if(!procedureImpacts.isEmpty()) {
 											
-											DefaultMutableTreeNode procedureNode     = new DefaultMutableTreeNode(Strings.getString("Procedure"));
+											DefaultMutableTreeNode procedureNode     = new DefaultMutableTreeNode(Strings.getString("procedure"));
 											DataBaseNode.add(procedureNode);
 											
 											for (Entry<String, String> impact : procedureImpacts.entrySet()) {
@@ -436,7 +438,7 @@ public class VisualInterface extends JFrame {
 										
 										if(!triggerImpacts.isEmpty()) {
 											
-											DefaultMutableTreeNode triggerNode     = new DefaultMutableTreeNode(Strings.getString("Trigger"));
+											DefaultMutableTreeNode triggerNode     = new DefaultMutableTreeNode(Strings.getString("trigger"));
 											DataBaseNode.add(triggerNode);
 											
 											for (Entry<String, String> impact : triggerImpacts.entrySet()) {
@@ -447,7 +449,7 @@ public class VisualInterface extends JFrame {
 
 										if(!functionImpacts.isEmpty()) {
 											
-											DefaultMutableTreeNode constraintNode     = new DefaultMutableTreeNode(Strings.getString("Constraint"));
+											DefaultMutableTreeNode constraintNode     = new DefaultMutableTreeNode(Strings.getString("constraint"));
 											DataBaseNode.add(constraintNode);
 											
 											for (Entry<String, String> impact : constraintImpacts.entrySet()) {
@@ -458,7 +460,7 @@ public class VisualInterface extends JFrame {
 
 										if(!viewImpacts.isEmpty()) {
 											
-											DefaultMutableTreeNode viewNode     = new DefaultMutableTreeNode(Strings.getString("View"));
+											DefaultMutableTreeNode viewNode     = new DefaultMutableTreeNode(Strings.getString("view"));
 											DataBaseNode.add(viewNode);
 											
 											for (Entry<String, String> impact : viewImpacts.entrySet()) {

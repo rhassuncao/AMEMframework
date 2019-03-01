@@ -23,14 +23,12 @@ public class DBSearch {
 	public ArrayList<String> object (String schema, String object, String type) throws SQLException{
 		
 		String sql    = "SELECT * FROM all_source WHERE owner = upper(?) "
-				+ "AND TYPE = upper(?) AND text LIKE upper('% ?.? %')";
+				+ "AND TYPE = upper(?) AND text LIKE upper('% " + schema + "." + object + " %')";
 
 		Connection conn = ConnectionPool.getInstance().getConnection();
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.setString(1, schema);
 		preparedStatment.setString(2, type);
-		preparedStatment.setString(3, schema);
-		preparedStatment.setString(4, object);
 		ResultSet resultSet = preparedStatment.executeQuery();
 		
 		ArrayList<String> objects = new ArrayList<>();
@@ -55,7 +53,7 @@ public class DBSearch {
 		ArrayList<String> objectImpacts =  object(anchorObject.getCapsule().getName(), anchorObject.getTable(), databaseObject);
 		HashMap<String, String> objectImpactsReturn = new HashMap<>();
 		
-		for(int i = 0; i <= objectImpacts.size(); i++) {
+		for(int i = 0; i < objectImpacts.size(); i++) {
 			
 			objectImpactsReturn.put(objectImpacts.get(i), "Invalid");
 		}

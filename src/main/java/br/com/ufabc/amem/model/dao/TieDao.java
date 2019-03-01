@@ -47,14 +47,14 @@ public class TieDao {
 		
 		FK fk1 = new FK("FK1_" + tie.getTable()
 			+ tie.getAnchor2().getMnemonic() + "_" + tie.getRole2(), 
-			schema, table, column1, tie.getAnchor1().getTable(), tie.getAnchor1().getCapsule().getName(), anchor1Column);
+			schema, table, column1, tie.getAnchor1().getCapsule().getName(), tie.getAnchor1().getTable(), anchor1Column);
 		fks.add(fk1);
 		
 		Column anchor2Column = new Column(tie.getAnchor2().getMnemonic()+ "_ID", tie.getAnchor2().getIdentity(), true, true, true);
 		
 		FK fk2 = new FK("FK2_" + tie.getTable()
 			+ tie.getAnchor2().getMnemonic() + "_" + tie.getRole2(), 
-			schema, table, column2, tie.getAnchor2().getTable(), tie.getAnchor2().getCapsule().getName(), anchor2Column );
+			schema, table, column2, tie.getAnchor2().getCapsule().getName(), tie.getAnchor2().getTable(), anchor2Column );
 		fks.add(fk2);
 
 		ArrayList<Unique> uniques = new ArrayList<>();

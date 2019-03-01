@@ -56,7 +56,7 @@ public class Table {
 			
 			sql += "CONSTRAINT " + fk.getName() + " FOREIGN KEY "
 				+  "(" + fk.getColumn().getName() + ")" 
-				+ "  REFERENCES " + fk.getExternalTable() + "(" + fk.getExternalColumn().getName() + ")";
+				+ "  REFERENCES " + fk.getExternalTableSchema() + "." + fk.getExternalTable() + "(" + fk.getExternalColumn().getName() + ")";
 			
 			if(j+1 != FKs.size() || !primaryKeys.isEmpty() || !uniques.isEmpty()) {
 				
@@ -139,7 +139,7 @@ public class Table {
 			lenghtTypes.add("VARCHAR2");
 			
 			ArrayList<String> precisionTypes = new ArrayList<>();
-			lenghtTypes.add("NUMBER");
+			precisionTypes.add("NUMBER");
 			
 			if(lenghtTypes.contains(dataType)) {
 				

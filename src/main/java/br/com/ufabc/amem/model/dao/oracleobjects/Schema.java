@@ -18,14 +18,14 @@ public class Schema {
 		
 		boolean returnBool = false;
 		
-		String sql    = "select * from SYS.ALL_USERS where USERNAME = ?";
+		String sql    = "select * from SYS.ALL_USERS where USERNAME = upper(?)";
 
 		Connection conn = ConnectionPool.getInstance().getConnection();
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.setString(1, name);
 		ResultSet resultSet = preparedStatment.executeQuery();
 
-		if (!resultSet.next()) {
+		if (resultSet.next()) {
 
 			returnBool = true;
 		} 
