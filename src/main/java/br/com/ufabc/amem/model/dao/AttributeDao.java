@@ -1,7 +1,5 @@
 package br.com.ufabc.amem.model.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,7 +11,6 @@ import br.com.ufabc.amem.model.dao.oracleobjects.FK;
 import br.com.ufabc.amem.model.dao.oracleobjects.Table;
 import br.com.ufabc.amem.model.dao.oracleobjects.Unique;
 import br.com.ufabc.amem.model.function.impact.ImpactList;
-import br.com.ufabc.amem.util.ConnectionPool;
 
 public class AttributeDao {
 
@@ -152,22 +149,16 @@ public class AttributeDao {
 	 * @throws ObjectAlreadyCreated
 	 * @throws SQLException
 	 */
-	public void historizeAttribute(Attribute attribute, String defaultTime, String defaultTimeFormat) throws ObjectAlreadyCreated, SQLException {
+	public void historizeAttribute(Attribute attribute, 
+								   String    defaultTime, 
+								   String    defaultTimeFormat) 
+										   throws ObjectAlreadyCreated, 
+										   		  SQLException {
 
+		Table table           = new Table();
 		String schema         = attribute.getCapsule().getName();
 		String attributeTable = attribute.getTable();
-		String historyColumn  = attribute.getAnchor().getMnemonic() + "_"
-							   + attribute.getMnemonic() 			+ "_ValidFrom";
-
-		String sql = "alter table " + schema + "." + attributeTable + " add (" + historyColumn + " "
-				+ attribute.getTimeRange() 
-				+ " DEFAULT TO_DATE('" + defaultTime + "', '" + defaultTimeFormat + "')"
-				+ " not null)";
-
-		Connection conn = ConnectionPool.getInstance().getConnection();
-		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		ConnectionPool.getInstance().releaseConnection(conn);
+		table.historizeTable(attributeTable, schema, defaultTime, defaultTimeFormat);
 	}
 
 	/**

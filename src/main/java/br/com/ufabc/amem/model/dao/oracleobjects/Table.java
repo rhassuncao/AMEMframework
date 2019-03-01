@@ -159,4 +159,60 @@ public class Table {
 		ConnectionPool.getInstance().releaseConnection(conn);
 		return columns;
 	}
+	
+	public void historizeTable(String table,
+							   String schema,
+			   				   String defaultTime, 
+			   				   String defaultTimeFormat) 
+			   						   throws SQLException {
+		
+		String sql = "";
+		//TODO
+		//Create table_new with all fields
+		
+		Connection conn = ConnectionPool.getInstance().getConnection();
+		PreparedStatement preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		sql = "";
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+//		String historyColumn  = attribute.getAnchor().getMnemonic() + "_"
+//		   + attribute.getMnemonic() 			+ "_ValidFrom";
+		
+		//make a trigger to coppy new data
+
+		//get current timestamp um centcenconds
+		sql = "select dbms_utility.get_time from dual";
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		String currentTime = "";
+		
+		//TODO validate to max 128 chars
+		String trigger = table + "_historize_temp" + currentTime;
+		//Copy data
+		sql = "";
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		//enable trigger
+		sql = "";
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		sql = "DROP TABLE " + table;
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		sql = "ALTER TABLE " + table + "_NEW RENAME TO " + table;
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		sql = "DROP TRIGGER " + trigger;
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+
+		ConnectionPool.getInstance().releaseConnection(conn);
+	}
 }

@@ -125,12 +125,13 @@ public class AttributeController {
 								   String defaultTimeFormat) throws InvalidObject, ObjectAlreadyCreated, SQLException {
 		
 		//Validate objects
-		Validate validate        = new Validate();
-		Capsule attributeCapsule = validate.validateCapsule(attributeCapsuleString);
-		Capsule anchorCapsule    = validate.validateCapsule(anchorCapsuleString);
-		Attribute attribute      = validate.validateAttribute(attributeCapsule, attributeString, anchorCapsule);
-		timeRange                = validate.validateTimeRange(timeRange);
-		defaultTimeFormat        = validate.validateTimeFormat(defaultTimeFormat);
+		Validate  validate         = new Validate();
+		Capsule   attributeCapsule = validate.validateCapsule(attributeCapsuleString);
+		Capsule   anchorCapsule    = validate.validateCapsule(anchorCapsuleString);
+		Attribute attribute        = validate.validateAttribute(attributeCapsule, attributeString, anchorCapsule);
+		
+		timeRange                  = validate.validateTimeRange(timeRange);
+		defaultTimeFormat          = validate.validateTimeFormat(defaultTimeFormat);
 		
 		attribute.setTimeRange(timeRange);
 				
