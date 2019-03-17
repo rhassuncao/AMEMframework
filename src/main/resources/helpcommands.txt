@@ -1,10 +1,10 @@
-String line = "createAnchor(Container, CO, RGHA, number(10), true, container)";
-String line = "createAnchor(Viagem, VI, RGHA, number(10), true, viagem)";
-String line = "createAttribute( RGHA, CO_CONTAINER, Sigla, SIG, RGHA, varchar(10), descricao, null, null, null)";
-String line = "createKnot(Colors, COS, RGHA, varchar(15), number(5), true, knot)";
-String line = "createAttribute(RGHA, CO_CONTAINER, Color, COL, RGHA, varchar(10), descricao, TIMESTAMP(3), RGHA, COS_COLORS)";
-String line = "createTie(RGHA, CO_Container, travel, true, RGHA, VI_Viagem, in, true, RGHA, link, TIMESTAMP(3))";
-String line = "historizeAttribute(RGHA, co_sig_container_sigla, RGHA, timestamp(3), 24/07/1992, dd/MM/yyyy)";
+String line = "createAnchor(Container, CO, TESTE2, number(10), true, container)";
+String line = "createAnchor(Viagem, VI, TESTE2, number(10), true, viagem)";
+String line = "createAttribute( TESTE2, CO_CONTAINER, Sigla, SIG, TESTE2, varchar(10), descricao, null, null, null)";
+String line = "createKnot(Colors, COS, TESTE2, varchar(15), number(5), true, knot)";
+String line = "createAttribute(TESTE2, CO_CONTAINER, Color, COL, TESTE2, varchar(10), descricao, TIMESTAMP(3), TESTE2, COS_COLORS)";
+String line = "createTie(TESTE2, CO_Container, travel, true, TESTE2, VI_Viagem, in, true, TESTE2, link, TIMESTAMP(3))";
+String line = "historizeAttribute(TESTE2, co_sig_container_sigla, TESTE2, timestamp(3), 24/07/1992, dd/MM/yyyy)";
 			
 drop sequence teste2.CO_CONTAINER_CO_ID_SEQ;
 
@@ -22,18 +22,18 @@ drop table teste2.CO_COL_CONTAINER_COLOR;
 
 drop table teste2.CO_CONTAINER;
 
-desc RGHA.CO_CONTAINER;
+desc TESTE2.CO_CONTAINER;
 
-desc RGHA.CO_CONTAINER_CO_ID_SEQ;
+desc TESTE2.CO_CONTAINER_CO_ID_SEQ;
 
-desc RGHA.TRG_CO_CONTAINER_CO_ID;
+desc TESTE2.TRG_CO_CONTAINER_CO_ID;
 
-desc RGHA.CO_SIG_CONTAINER_SIGLA;
+desc TESTE2.CO_SIG_CONTAINER_SIGLA;
 
-desc RGHA.COS_COLORS;
+desc TESTE2.COS_COLORS;
 
-desc RGHA.COS_Colors_COS_ID_SEQ
+desc TESTE2.COS_Colors_COS_ID_SEQ
 
-desc RGHA.TRG_COS_Colors_COS_ID
+desc TESTE2.TRG_COS_Colors_COS_ID
 
-desc RGHA.CO_COL_CONTAINER_COLOR;
+desc TESTE2.CO_COL_CONTAINER_COLOR;
