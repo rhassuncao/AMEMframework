@@ -28,7 +28,7 @@ public class AttributeDao {
 		ArrayList<Column> columns = new ArrayList<>();
 		ArrayList<FK>     FKs     = new ArrayList<>();
 		
-		Column columnAnchor = new Column(columnAnchorName, columnAnchorType, true, true, false);
+		Column columnAnchor = new Column(columnAnchorName, columnAnchorType, true, true, false, null);
 		columns.add(columnAnchor);
 		
 		String columnAnchorFKName = "FK1_" + attributeTable;
@@ -42,7 +42,7 @@ public class AttributeDao {
 
 			String columnKnotName   = attribute.getKnot().getMnemonic() + "_ID";
 			String columnKnotType   = attribute.getKnot().getIdentity();
-			Column columnKnotted    = new Column(columnKnotName , columnKnotType, true, false, false);
+			Column columnKnotted    = new Column(columnKnotName , columnKnotType, true, false, false, null);
 			columns.add(columnKnotted);
 			
 			String columnknotFKName = "FK2_" + attributeTable;
@@ -59,7 +59,7 @@ public class AttributeDao {
 									+ attribute.getDescriptor();
 			String columnStaticType = attribute.getDataRange();
 
-			Column columnStatic = new Column(columnStaticName , columnStaticType, true, false, false);
+			Column columnStatic = new Column(columnStaticName , columnStaticType, true, false, false, null);
 			columns.add(columnStatic);
 		}
 
@@ -69,7 +69,7 @@ public class AttributeDao {
 									 + attribute.getMnemonic()             + "_ValidFrom";
 			String historyColumnType = attribute.getTimeRange();
 			
-			Column historyColumn = new Column(historyColumnName , historyColumnType, true, true, false);
+			Column historyColumn = new Column(historyColumnName , historyColumnType, true, true, false, null);
 			columns.add(historyColumn);
 		}
 		
@@ -152,13 +152,12 @@ public class AttributeDao {
 	public void historizeAttribute(Attribute attribute, 
 								   String    defaultTime, 
 								   String    defaultTimeFormat) 
-										   throws ObjectAlreadyCreated, 
-										   		  SQLException {
+										   throws SQLException {
 
-		Table table           = new Table();
+		Table  table          = new Table();
 		String schema         = attribute.getCapsule().getName();
 		String attributeTable = attribute.getTable();
-		table.historizeTable(attributeTable, schema, defaultTime, defaultTimeFormat);
+		table.historizeTable(schema, attributeTable, defaultTime, defaultTimeFormat);
 	}
 
 	/**
@@ -186,6 +185,24 @@ public class AttributeDao {
 			
 			impactList.addKnotImpact(attribute.getKnot(), "Link");
 		}
+		
+		return impactList;
+	}
+
+	public ImpactList historizeAttributeImpact(Attribute attribute) throws SQLException {
+		
+		ImpactList impactList = new ImpactList();
+		
+		DBSearch dbSearch = new DBSearch();
+		
+		impactList.setProcedureImpacts(dbSearch.objectImpacts(attribute, "PROCEDURE"));
+		impactList.setFunctionImpacts( dbSearch.objectImpacts(attribute, "FUNCTION"));
+		impactList.setTableImpacts(    dbSearch.objectImpacts(attribute, "TABLE"));
+		impactList.setViewImpacts(     dbSearch.objectImpacts(attribute, "VIEW"));
+		impactList.setTriggerImpacts(  dbSearch.objectImpacts(attribute, "TRIGGER"));
+		
+		impactList.addAttributeImpact(attribute,          "Historize");
+		impactList.addTableImpact(attribute.getTable(),   "Recreate");
 		
 		return impactList;
 	}

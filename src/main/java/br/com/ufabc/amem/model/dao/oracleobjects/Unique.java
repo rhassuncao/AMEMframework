@@ -1,6 +1,6 @@
 package br.com.ufabc.amem.model.dao.oracleobjects;
 
-public class Unique {
+public class Unique extends Constraint{
 
 	/**
 	 * 

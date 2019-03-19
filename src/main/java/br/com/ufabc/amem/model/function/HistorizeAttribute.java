@@ -20,7 +20,7 @@ public class HistorizeAttribute extends Function{
 	public HistorizeAttribute(){
 		
 		this.name           = "historizeAttribute";
-		this.description    = "Create an Attribute anchor modeling object";
+		this.description    = "Historize an existing non historized anchor attribute";
 		this.parameters     = new ArrayList<String>();
 		this.parameters.add("capsule");
 		this.parameters.add("attribute");
@@ -50,8 +50,10 @@ public class HistorizeAttribute extends Function{
 	 * @see br.com.ufabc.amem.model.function.Function#getImpact(java.lang.String[])
 	 */
 	@Override
-	public ImpactList getImpact(String[] params) {
+	public ImpactList getImpact(String[] params) throws InvalidParameterNumber, InvalidObject, SQLException, ObjectAlreadyCreated {
 		
-		return null;
+		validateParameters(params);
+		
+		return new AttributeController().historizeAttributeImpacts(params[0], params[1], params[2], params[3], params[4], params[5]);
 	}
 }

@@ -24,7 +24,7 @@ public class AnchorDao {
 		String columnName = anchor.getMnemonic() + "_ID";
 		String columnType = anchor.getIdentity();
 		
-		Column column             = new Column(columnName, columnType, true, true, true);
+		Column column             = new Column(columnName, columnType, true, true, true, null);
 		ArrayList<Column> columns = new ArrayList<>();
 		columns.add(column);
 		

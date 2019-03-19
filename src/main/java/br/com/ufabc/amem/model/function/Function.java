@@ -96,7 +96,8 @@ public abstract class Function implements Executable {
 	 * @throws InvalidObject
 	 * @throws SQLException
 	 * @throws InvalidParameterNumber
+	 * @throws ObjectAlreadyCreated 
 	 */
 	public abstract ImpactList getImpact(String[] params) 
-			throws InvalidObject, SQLException, InvalidParameterNumber;
+			throws InvalidObject, SQLException, InvalidParameterNumber, ObjectAlreadyCreated;
 }

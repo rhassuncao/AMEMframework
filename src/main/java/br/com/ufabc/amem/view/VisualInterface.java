@@ -523,7 +523,7 @@ public class VisualInterface extends JFrame {
 				showScreen += e.getMessage();
 			}
 			
-			styledDocument.insertString(styledDocument.getLength(), "[" + getTime() + "] - $" + SYSTEM+ ": " + showScreen + "\n", null);
+			styledDocument.insertString(styledDocument.getLength(), "[" + getTime() + "] - $" + SYSTEM + ": " + showScreen + "\n", null);
 			
 		} catch (BadLocationException e) {
 			

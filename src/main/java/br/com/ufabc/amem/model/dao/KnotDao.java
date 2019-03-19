@@ -26,8 +26,8 @@ public class KnotDao {
 		String columnDescName  = knot.getMnemonic() + "_" + knot.getDescriptor();
 		String columnDescType  = knot.getDataRange();
 
-		Column columnId           = new Column(columnIdName, columnIdType, true, true, true);
-		Column columnDesc         = new Column(columnDescName, columnDescType, true, false, false);
+		Column columnId           = new Column(columnIdName, columnIdType, true, true, true, null);
+		Column columnDesc         = new Column(columnDescName, columnDescType, true, false, false, null);
 		ArrayList<Column> columns = new ArrayList<>();
 		columns.add(columnId);
 		columns.add(columnDesc);

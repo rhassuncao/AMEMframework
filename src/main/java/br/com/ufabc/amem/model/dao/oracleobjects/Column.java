@@ -23,6 +23,9 @@ public class Column {
 	 */
 	private boolean autoIncrement;
 	
+	
+	private String defaultValue;
+	
 	/**
 	 * @param name
 	 * @param dataType
@@ -34,13 +37,15 @@ public class Column {
 				  String dataType, 
 				  boolean notNull, 
 				  boolean primaryKey,
-				  boolean autoIncrement) {
+				  boolean autoIncrement,
+				  String  defaultValue) {
 		
 		this.name          = name;
 		this.dataType      = dataType;
 		this.notNull       = notNull;
 		this.primaryKey    = primaryKey;
 		this.autoIncrement = autoIncrement;
+		this.defaultValue  = defaultValue;
 	}
 
 	/**
@@ -121,5 +126,21 @@ public class Column {
 	public void setAutoIncrement(boolean autoIncrement) {
 		
 		this.autoIncrement = autoIncrement;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getDefaultValue() {
+		
+		return this.defaultValue;
+	}
+
+	/**
+	 * @param name
+	 */
+	public void setDefaultValue(String defaultValue) {
+		
+		this.defaultValue = defaultValue;
 	}
 }

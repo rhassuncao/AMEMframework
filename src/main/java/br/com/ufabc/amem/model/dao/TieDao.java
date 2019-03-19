@@ -25,11 +25,11 @@ public class TieDao {
 		ArrayList<Column> columns = new ArrayList<>();
 		
 		Column column1 = new Column(tie.getAnchor1().getMnemonic() + "_ID_" + tie.getRole1(), 
-				tie.getAnchor1().getIdentity(), true, true, false);
+				tie.getAnchor1().getIdentity(), true, true, false, null);
 		columns.add(column1);
 		
 		Column column2 = new Column(tie.getAnchor2().getMnemonic() + "_ID_" + tie.getRole2(), 
-				tie.getAnchor2().getIdentity(), true, true, false);
+				tie.getAnchor2().getIdentity(), true, true, false, null);
 		columns.add(column2);
 		
 		if(tie.getTimeRange() != null) {
@@ -37,20 +37,20 @@ public class TieDao {
 			String historyColumnName = tie.getTable() + "_ChangedAt";
 			String historyColumnType = tie.getTimeRange();
 
-			Column historyColumn = new Column(historyColumnName , historyColumnType, true, true, false);
+			Column historyColumn = new Column(historyColumnName , historyColumnType, true, true, false, null);
 			columns.add(historyColumn);
 		}
 		
 		ArrayList<FK> fks = new ArrayList<FK>();
 		
-		Column anchor1Column = new Column(tie.getAnchor1().getMnemonic()+ "_ID", tie.getAnchor1().getIdentity(), true, true, true);
+		Column anchor1Column = new Column(tie.getAnchor1().getMnemonic()+ "_ID", tie.getAnchor1().getIdentity(), true, true, true, null);
 		
 		FK fk1 = new FK("FK1_" + tie.getTable()
 			+ tie.getAnchor2().getMnemonic() + "_" + tie.getRole2(), 
 			schema, table, column1, tie.getAnchor1().getCapsule().getName(), tie.getAnchor1().getTable(), anchor1Column);
 		fks.add(fk1);
 		
-		Column anchor2Column = new Column(tie.getAnchor2().getMnemonic()+ "_ID", tie.getAnchor2().getIdentity(), true, true, true);
+		Column anchor2Column = new Column(tie.getAnchor2().getMnemonic()+ "_ID", tie.getAnchor2().getIdentity(), true, true, true, null);
 		
 		FK fk2 = new FK("FK2_" + tie.getTable()
 			+ tie.getAnchor2().getMnemonic() + "_" + tie.getRole2(), 

@@ -138,4 +138,25 @@ public class AttributeController {
 		AttributeDao attributeDao = new AttributeDao();
 		attributeDao.historizeAttribute(attribute, defaultTime, defaultTimeFormat);
 	}
+
+	public ImpactList historizeAttributeImpacts(String attributeCapsuleString, 
+								   String attributeString,
+								   String anchorCapsuleString,
+								   String timeRange, 
+								   String defaultTime,
+								   String defaultTimeFormat) throws InvalidObject, ObjectAlreadyCreated, SQLException {
+		
+		//Validate objects
+		Validate  validate         = new Validate();
+		Capsule   attributeCapsule = validate.validateCapsule(attributeCapsuleString);
+		Capsule   anchorCapsule    = validate.validateCapsule(anchorCapsuleString);
+		Attribute attribute        = validate.validateAttribute(attributeCapsule, attributeString, anchorCapsule);
+		
+		timeRange                  = validate.validateTimeRange(timeRange);
+		defaultTimeFormat          = validate.validateTimeFormat(defaultTimeFormat);
+		
+		attribute.setTimeRange(timeRange);
+				
+		return new AttributeDao().historizeAttributeImpact(attribute);
+	}
 }

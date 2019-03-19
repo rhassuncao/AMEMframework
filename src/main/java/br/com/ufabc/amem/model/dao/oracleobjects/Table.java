@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.com.ufabc.amem.util.ConnectionPool;
 
@@ -28,6 +29,7 @@ public class Table {
 		
 		ArrayList<String> primaryKeys = new ArrayList<>();
 		
+		//TODO set default value
 		for (int i = 0; i < columns.size(); i++) {
 			
 			Column col = columns.get(i);
@@ -129,6 +131,7 @@ public class Table {
 		ResultSet resultSet = preparedStatment.executeQuery();
 		
 		ArrayList<Column> columns = new ArrayList<>();
+		ArrayList<String> pks = selectPKS(schema, table);
 
 		while (resultSet.next()) {
 
@@ -152,7 +155,16 @@ public class Table {
 			}
 
 			String columnName =  resultSet.getString("column_name");
-			Column column     = new Column(columnName, dataType, false, false, false);
+			
+			boolean isPK = false;
+			
+			if(pks.contains(columnName)) {
+				
+				isPK = true;
+			}
+			
+			//TODO how to know if it is autoIncrement and how to know the default value
+			Column column     = new Column(columnName, dataType, false, isPK, false, null);
 			columns.add(column);
 		}
 
@@ -160,59 +172,178 @@ public class Table {
 		return columns;
 	}
 	
-	public void historizeTable(String table,
-							   String schema,
+	public void historizeTable(String schema,
+							   String table,
 			   				   String defaultTime, 
 			   				   String defaultTimeFormat) 
 			   						   throws SQLException {
 		
+		String currentTime = "" + new Date().getTime();
+		String tempTable = table + "_new_" + currentTime;
+		
+		ArrayList<Column> tableColumns = selectTable(schema, table);
+		String historyColumn  = table + "_ValidFrom";
+		
+		String defaultValue = "to_date('" + defaultTime + "', '" + defaultTimeFormat + "')";
+		tableColumns.add(new Column(historyColumn, "DATE", true, true, false, defaultValue));
+		
+		ArrayList<FK>     fks          = selectFKS(    schema, table);
+		
+		for(FK fk : fks) {
+			
+			fk.setName(fk.getName() + "_" + currentTime);
+		}
+		
+		ArrayList<Unique> uniques      = selectUniques(schema, table);
+		
+		for(Unique unique : uniques) {
+			
+			unique.setName(unique.getName() + "_" + currentTime);
+		}
+		
+		createTable(schema, tempTable, tableColumns, fks, uniques);
+		
+		//make a trigger to copy new data
+		//TODO validate to max 128 chars
+		//String trigger = table + "_historize_temp_" + currentTime;
 		String sql = "";
-		//TODO
-		//Create table_new with all fields
+//		String sql = "CREATE OR REPLACE TRIGGER " + trigger + "\r\n" + 
+//				"  BEFORE DELETE OR INSERT OR UPDATE ON " + schema + "." + table + "\r\n" + 
+//				"  DISABLED\r\n" +
+//				"  FOR EACH ROW\r\n" + 
+//				"DECLARE\r\n" + 
+//				"    \r\n" + 
+//				"BEGIN\r\n" + 
+//				"    \r\n" + 
+//				"END;\r\n" + 
+//				"/";
+		
+		Connection conn = ConnectionPool.getInstance().getConnection();	
+//		PreparedStatement preparedStatment = conn.prepareStatement(sql);
+//		preparedStatment = conn.prepareStatement(sql);
+//		preparedStatment.execute();
+		
+		//Copy data
+		
+//		sql = "ALTER TRIGGER " + trigger + " ENABLE";
+//		preparedStatment = conn.prepareStatement(sql);
+//		preparedStatment.execute();
+		
+		sql = "DROP TABLE " + table;
+		PreparedStatement preparedStatment = conn.prepareStatement(sql);
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+		sql = "ALTER TABLE " + tempTable + " RENAME TO " + table;
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		
+//		sql = "DROP TRIGGER " + trigger;
+//		preparedStatment = conn.prepareStatement(sql);
+//		preparedStatment.execute();
+
+		ConnectionPool.getInstance().releaseConnection(conn);
+	}
+	
+	public ArrayList<Unique> selectUniques(String schema, String table) throws SQLException{
+
+		String sql = "select \r\n" + 
+				"    ACC.COLUMN_NAME, ACC.CONSTRAINT_NAME\r\n" + 
+				"from \r\n" + 
+				"    all_constraints AC\r\n" + 
+				"    JOIN all_cons_columns aCC ON AC.CONSTRAINT_NAME = ACC.CONSTRAINT_NAME\r\n" + 
+				"where\r\n" + 
+				"    AC.owner               = UPPER(?)\r\n" + 
+				"    and AC.table_name      = UPPER(?)\r\n" + 
+				"    and AC.status          = 'ENABLED'	 \r\n" + 
+				"    and AC.constraint_type = 'C'";
 		
 		Connection conn = ConnectionPool.getInstance().getConnection();
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
+		preparedStatment.setString(1, schema);
+		preparedStatment.setString(2, table);
+		ResultSet resultSet = preparedStatment.executeQuery();
 		
-		sql = "";
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-//		String historyColumn  = attribute.getAnchor().getMnemonic() + "_"
-//		   + attribute.getMnemonic() 			+ "_ValidFrom";
-		
-		//make a trigger to coppy new data
+		ArrayList<Unique> uniques = new ArrayList<>();
 
-		//get current timestamp um centcenconds
-		sql = "select dbms_utility.get_time from dual";
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
+		while (resultSet.next()) {
+			
+			String constraintName  = resultSet.getString("CONSTRAINT_NAME");
+			String columnName      = resultSet.getString("COLUMN_NAME");
+			Column column          = new Column(columnName, null, false, false, false, null);
+            				
+            uniques.add(new Unique(constraintName, column));
+		}
 		
-		String currentTime = "";
-		
-		//TODO validate to max 128 chars
-		String trigger = table + "_historize_temp" + currentTime;
-		//Copy data
-		sql = "";
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		
-		//enable trigger
-		sql = "";
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		
-		sql = "DROP TABLE " + table;
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		
-		sql = "ALTER TABLE " + table + "_NEW RENAME TO " + table;
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-		
-		sql = "DROP TRIGGER " + trigger;
-		preparedStatment = conn.prepareStatement(sql);
-		preparedStatment.execute();
-
 		ConnectionPool.getInstance().releaseConnection(conn);
+		return uniques;
+	}
+	
+	public ArrayList<FK> selectFKS(String schema, String table) throws SQLException{
+
+		String sql = "SELECT \r\n" + 
+				"    a.constraint_name NAME, c.owner TABLESCHEMA, a.table_name \"TABLE\", a.column_name \"COLUMN\", \r\n" + 
+				"    c.r_owner \"EXTERNALTABLESCHEMA\", c_pk.table_name \"EXTERNALTABLE\", a.column_name \"EXTERNALCOLUMN\"\r\n" + 
+				"  FROM all_cons_columns a\r\n" + 
+				"  JOIN all_constraints c \r\n" + 
+				"    ON a.owner = c.owner AND a.constraint_name = c.constraint_name\r\n" + 
+				"  JOIN all_constraints c_pk \r\n" + 
+				"    ON c.r_owner = c_pk.owner AND c.r_constraint_name = c_pk.constraint_name\r\n" + 
+				" WHERE c.constraint_type = 'R'\r\n" + 
+				"   AND a.owner      = UPPER(?)\r\n" + 
+				"   AND a.table_name = UPPER(?)";
+		
+		Connection conn = ConnectionPool.getInstance().getConnection();
+		PreparedStatement preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.setString(1, schema);
+		preparedStatment.setString(2, table);
+		ResultSet resultSet = preparedStatment.executeQuery();
+		
+		ArrayList<FK> FKs = new ArrayList<>();
+
+		while (resultSet.next()) {
+			
+			String name                 = resultSet.getString("NAME");
+			Column column               = new Column(resultSet.getString("COLUMN"),  null, false, false, false, null);
+			String externalTableSchema  = resultSet.getString("EXTERNALTABLESCHEMA");
+			String externalTable        = resultSet.getString("EXTERNALTABLE");
+			Column externalColumn       = new Column(resultSet.getString("EXTERNALCOLUMN"),  null, false, false, false, null);
+
+            
+			FK fk = new FK(name, schema, table, column, externalTableSchema, externalTable, externalColumn);
+            FKs.add(fk);
+		}
+		
+		ConnectionPool.getInstance().releaseConnection(conn);
+		return FKs;
+	}
+	
+	public ArrayList<String> selectPKS(String schema, String table) throws SQLException{
+
+		String sql = "select \r\n" + 
+				"    a.column_name COLUMNNAME\r\n" + 
+				"from all_cons_columns a\r\n" + 
+				"    JOIN all_constraints c on a.constraint_name = c.constraint_name\r\n" + 
+				"where \r\n" + 
+				"    a.owner           = UPPER(?)\r\n" + 
+				"and a.table_name      = UPPER(?)\r\n" + 
+				"and c.constraint_type = 'P'";
+		
+		Connection conn = ConnectionPool.getInstance().getConnection();
+		PreparedStatement preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.setString(1, schema);
+		preparedStatment.setString(2, table);
+		ResultSet resultSet = preparedStatment.executeQuery();
+		
+		ArrayList<String> PKs = new ArrayList<>();
+
+		while (resultSet.next()) {
+			
+			String pk = resultSet.getString("COLUMNNAME");
+            PKs.add(pk);
+		}
+		
+		ConnectionPool.getInstance().releaseConnection(conn);
+		return PKs;
 	}
 }
