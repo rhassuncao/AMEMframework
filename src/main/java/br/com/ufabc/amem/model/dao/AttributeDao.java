@@ -152,7 +152,7 @@ public class AttributeDao {
 	public void historizeAttribute(Attribute attribute, 
 								   String    defaultTime, 
 								   String    defaultTimeFormat) 
-										   throws SQLException {
+										   throws SQLException, ObjectAlreadyCreated {
 
 		Table  table          = new Table();
 		String schema         = attribute.getCapsule().getName();

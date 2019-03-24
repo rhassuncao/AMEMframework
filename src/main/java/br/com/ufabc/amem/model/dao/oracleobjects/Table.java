@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.util.ConnectionPool;
 
 public class Table {
@@ -176,15 +178,23 @@ public class Table {
 							   String table,
 			   				   String defaultTime, 
 			   				   String defaultTimeFormat) 
-			   						   throws SQLException {
+			   						   throws SQLException, ObjectAlreadyCreated {
 		
 		String currentTime = "" + new Date().getTime();
-		String tempTable = table + "_new_" + currentTime;
+		String tempTable   = table + "_NEW_" + currentTime;
 		
 		ArrayList<Column> tableColumns = selectTable(schema, table);
-		String historyColumn  = table + "_ValidFrom";
+		String historyColumn  = table + "_VALIDFROM";
 		
-		String defaultValue = "to_date('" + defaultTime + "', '" + defaultTimeFormat + "')";
+		for(Column column : tableColumns) {
+			
+			if(column.getName().equalsIgnoreCase(historyColumn)) {
+				
+				throw new ObjectAlreadyCreated(historyColumn, "Column", "HistorizeAttribute");
+			}
+		}
+		
+		String defaultValue = "TO_DATE('" + defaultTime + "', '" + defaultTimeFormat + "')";
 		tableColumns.add(new Column(historyColumn, "DATE", true, true, false, defaultValue));
 		
 		ArrayList<FK>     fks          = selectFKS(    schema, table);
@@ -205,43 +215,74 @@ public class Table {
 		
 		//make a trigger to copy new data
 		//TODO validate to max 128 chars
-		//String trigger = table + "_historize_temp_" + currentTime;
-		String sql = "";
-//		String sql = "CREATE OR REPLACE TRIGGER " + trigger + "\r\n" + 
-//				"  BEFORE DELETE OR INSERT OR UPDATE ON " + schema + "." + table + "\r\n" + 
-//				"  DISABLED\r\n" +
-//				"  FOR EACH ROW\r\n" + 
-//				"DECLARE\r\n" + 
-//				"    \r\n" + 
-//				"BEGIN\r\n" + 
-//				"    \r\n" + 
-//				"END;\r\n" + 
-//				"/";
+		String trigger = table + "_HISTORIZE_TEMP_" + currentTime;
+		String sql = "CREATE OR REPLACE TRIGGER " + trigger + "\r\n" + 
+				"	AFTER INSERT ON " + schema + "." + table + "\r\n" + 
+				"	FOR EACH ROW\r\n" + 
+				"	DISABLE\r\n" + 
+				"BEGIN\r\n" + 
+				"	INSERT INTO " + schema + "." + tempTable + "\r\n" +
+				"	(\r\n";
+		
+		for(int i = 0; i < tableColumns.size(); i++) {
+			
+			sql += "		" + tableColumns.get(i).getName();
+			
+			if(i != tableColumns.size() - 1) {
+				
+				sql += ",";
+			}
+			
+			sql += "\r\n";
+		}
+		
+		sql += "	) VALUES (\r\n";
+		
+		
+		for(int i = 0; i < tableColumns.size(); i++) {
+			
+			if(tableColumns.get(i).getName().equalsIgnoreCase(historyColumn)) {
+				
+				sql += "		SYSDATE";
+				
+			} else {
+				
+				sql += "		:NEW." + tableColumns.get(i).getName();
+			}
+			
+			if(i != tableColumns.size() - 1) {
+				
+				sql += ",";
+			}
+			
+			sql += "\r\n";
+		}
+
+		sql += "	);\r\n" +  
+				"END;\r\n" + 
+				"/";
+				
 		
 		Connection conn = ConnectionPool.getInstance().getConnection();	
-//		PreparedStatement preparedStatment = conn.prepareStatement(sql);
-//		preparedStatment = conn.prepareStatement(sql);
-//		preparedStatment.execute();
+		Statement stmt = conn.prepareStatement(sql);
+		stmt.executeQuery(sql);
 		
 		//Copy data
 		
-//		sql = "ALTER TRIGGER " + trigger + " ENABLE";
-//		preparedStatment = conn.prepareStatement(sql);
-//		preparedStatment.execute();
-		
-		sql = "DROP TABLE " + table;
+		sql = "ALTER TRIGGER " + trigger + " ENABLE";
 		PreparedStatement preparedStatment = conn.prepareStatement(sql);
 		preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.execute();
+		
+		sql = "DROP TABLE " + table;
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.execute();
+		//Also drops the trigger
 		
 		sql = "ALTER TABLE " + tempTable + " RENAME TO " + table;
 		preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.execute();
 		
-//		sql = "DROP TRIGGER " + trigger;
-//		preparedStatment = conn.prepareStatement(sql);
-//		preparedStatment.execute();
-
 		ConnectionPool.getInstance().releaseConnection(conn);
 	}
 	
