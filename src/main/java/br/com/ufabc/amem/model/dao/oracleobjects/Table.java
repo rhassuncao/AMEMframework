@@ -183,7 +183,14 @@ public class Table {
 		String currentTime = "" + new Date().getTime();
 		String tempTable   = table + "_NEW_" + currentTime;
 		
-		ArrayList<Column> tableColumns = selectTable(schema, table);
+		ArrayList<Column> oldTableColumns = selectTable(schema, table);
+		ArrayList<Column> tableColumns    = new ArrayList<Column>();
+		
+		for(Column column : oldTableColumns) {
+			
+			tableColumns.add(column);
+		}
+		
 		String historyColumn  = table + "_VALIDFROM";
 		
 		for(Column column : tableColumns) {
@@ -213,7 +220,6 @@ public class Table {
 		
 		createTable(schema, tempTable, tableColumns, fks, uniques);
 		
-		//make a trigger to copy new data
 		//TODO validate to max 128 chars
 		String trigger = table + "_HISTORIZE_TEMP_" + currentTime;
 		String sql = "CREATE OR REPLACE TRIGGER " + trigger + "\r\n" + 
@@ -268,9 +274,44 @@ public class Table {
 		stmt.executeQuery(sql);
 		
 		//Copy data
+		sql = " INSERT INTO " + schema + "." + tempTable + " ( \r\n";
+		
+		for(int i = 0; i < oldTableColumns.size(); i++) {
+			
+			sql += "	" + oldTableColumns.get(i).getName();
+			
+			if(i != oldTableColumns.size() - 1) {
+				
+				sql += " , ";
+			} 
+			else {
+				sql += " ) ";
+			}
+			
+			sql += " \r\n ";
+		}
+				
+		sql += " SELECT \r\n ";
+		
+		for(int i = 0; i < oldTableColumns.size(); i++) {
+			
+			sql += "	" + table + "." + oldTableColumns.get(i).getName();
+			
+			if(i != oldTableColumns.size() - 1) {
+				
+				sql += " , ";
+			}
+			
+			sql += " \r\n";
+		}
+		
+		sql += " FROM " + schema + "." + table;
+		
+		PreparedStatement preparedStatment = conn.prepareStatement(sql);
+		preparedStatment = conn.prepareStatement(sql);
+		preparedStatment.executeQuery();
 		
 		sql = "ALTER TRIGGER " + trigger + " ENABLE";
-		PreparedStatement preparedStatment = conn.prepareStatement(sql);
 		preparedStatment = conn.prepareStatement(sql);
 		preparedStatment.execute();
 		
