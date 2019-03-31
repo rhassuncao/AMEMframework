@@ -190,7 +190,7 @@ public class Validate {
 	 * @throws SQLException
 	 */
 	public Attribute validateAttribute(Capsule attributeCapsule, 
-									   String attributeString,
+									   String  attributeString,
 									   Capsule anchorCapsule) throws InvalidObject, SQLException {
 		
 		String[] parts      = attributeString.split("_");

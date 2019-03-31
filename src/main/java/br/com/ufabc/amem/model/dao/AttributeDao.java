@@ -2,9 +2,11 @@ package br.com.ufabc.amem.model.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import br.com.ufabc.amem.exceptions.ObjectAlreadyCreated;
 import br.com.ufabc.amem.model.am.Attribute;
+import br.com.ufabc.amem.model.am.Knot;
 import br.com.ufabc.amem.model.dao.oracleobjects.Column;
 import br.com.ufabc.amem.model.dao.oracleobjects.DBSearch;
 import br.com.ufabc.amem.model.dao.oracleobjects.FK;
@@ -205,5 +207,67 @@ public class AttributeDao {
 		impactList.addTableImpact(attribute.getTable(),   "Recreate");
 		
 		return impactList;
+	}
+
+	@SuppressWarnings("unlikely-arg-type")
+	public ImpactList knotAttributeImpact(Attribute attribute, Knot knot) throws SQLException {
+		
+		ImpactList impactList = new ImpactList();
+		
+		DBSearch dbSearch = new DBSearch();
+		
+		impactList.setProcedureImpacts(dbSearch.objectImpacts(attribute, "PROCEDURE"));
+		impactList.setFunctionImpacts( dbSearch.objectImpacts(attribute, "FUNCTION"));
+		impactList.setTableImpacts(    dbSearch.objectImpacts(attribute, "TABLE"));
+		impactList.setViewImpacts(     dbSearch.objectImpacts(attribute, "VIEW"));
+		impactList.setTriggerImpacts(  dbSearch.objectImpacts(attribute, "TRIGGER"));
+		
+		impactList.addAttributeImpact(attribute,          "knot");
+		impactList.addTableImpact(attribute.getTable(),   "Recreate");
+		
+		HashMap<String, String> knotProcedureImpacts = dbSearch.objectImpacts(knot, "PROCEDURE");
+		
+		for(int i = 0; i < knotProcedureImpacts.size(); i++) {
+			
+			impactList.addProcedureImpact(knotProcedureImpacts.get(i), "Invalid");
+		}
+		
+		HashMap<String, String> knotFunctionImpacts = dbSearch.objectImpacts(knot, "FUNCTION");
+		
+		for(int i = 0; i < knotFunctionImpacts.size(); i++) {
+			
+			impactList.addFunctionImpact(knotFunctionImpacts.get(i), "Invalid");
+		}
+		
+		HashMap<String, String> knotTableImpacts = dbSearch.objectImpacts(knot, "TABLE");
+		
+		for(int i = 0; i < knotTableImpacts .size(); i++) {
+			
+			impactList.addTableImpact(knotTableImpacts.get(i), "Invalid");
+		}
+		
+		HashMap<String, String> knotViewImpacts = dbSearch.objectImpacts(knot, "VIEW");
+		
+		for(int i = 0; i < knotViewImpacts .size(); i++) {
+			
+			impactList.addViewImpact(knotViewImpacts.get(i), "Invalid");
+		}
+		
+		HashMap<String, String> knotTriggerImpacts = dbSearch.objectImpacts(knot, "TRIGGER");
+		
+		for(int i = 0; i < knotTriggerImpacts.size(); i++) {
+			
+			impactList.addTriggerImpact(knotTriggerImpacts.get(i), "Invalid");
+		}
+		
+		impactList.addKnotImpact(knot,             "create");
+		impactList.addTableImpact(knot.getTable(), "create");
+		
+		return null;
+	}
+
+	public Object knotAttribute(Attribute attribute, Knot knot) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

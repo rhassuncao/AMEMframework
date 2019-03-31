@@ -159,4 +159,75 @@ public class AttributeController {
 				
 		return new AttributeDao().historizeAttributeImpact(attribute);
 	}
+
+	public ImpactList knotAttributeImpacts(String attributeCapsuleString, 
+										   String attributeString,
+										   String anchorCapsuleString,
+										   String descriptorString, 
+										   String mnemonicString, 
+										   String capsuleString,
+										   String dataRange,
+										   String identityString,
+										   String generatorString, 
+										   String description) throws InvalidObject, SQLException {
+
+		//Validate objects
+		Validate validate          = new Validate();
+		Capsule   attributeCapsule = validate.validateCapsule(attributeCapsuleString);
+		Capsule   anchorCapsule    = validate.validateCapsule(anchorCapsuleString);
+		Attribute attribute        = validate.validateAttribute(attributeCapsule, attributeString, anchorCapsule);
+		descriptorString           = validate.validateDescriptor(descriptorString);
+		mnemonicString             = validate.validateMnemonic(mnemonicString, new Knot(null, null, null, null, null, false, null));
+		Capsule capsule            = validate.validateCapsule(capsuleString);
+		dataRange                  = validate.validateDataRange(dataRange);
+		identityString             = validate.validateIdentity(identityString);
+		boolean generator          = validate.validateGenerator(generatorString);
+		description                = validate.validateDescription(description);
+
+		Knot knot = new Knot(descriptorString, 
+							 mnemonicString, 
+							 capsule, 
+							 dataRange,
+							 identityString, 
+							 generator, 
+							 description);
+		
+		
+		return new AttributeDao().knotAttributeImpact(attribute, knot);
+	}
+
+	public void knotAttribute(String attributeCapsuleString, 
+			   String attributeString,
+			   String anchorCapsuleString,
+			   String descriptorString, 
+			   String mnemonicString, 
+			   String capsuleString,
+			   String dataRange,
+			   String identityString,
+			   String generatorString, 
+			   String description) throws InvalidObject, SQLException {
+
+		//Validate objects
+		Validate validate          = new Validate();
+		Capsule   attributeCapsule = validate.validateCapsule(attributeCapsuleString);
+		Capsule   anchorCapsule    = validate.validateCapsule(anchorCapsuleString);
+		Attribute attribute        = validate.validateAttribute(attributeCapsule, attributeString, anchorCapsule);
+		descriptorString           = validate.validateDescriptor(descriptorString);
+		mnemonicString             = validate.validateMnemonic(mnemonicString, new Knot(null, null, null, null, null, false, null));
+		Capsule capsule            = validate.validateCapsule(capsuleString);
+		dataRange                  = validate.validateDataRange(dataRange);
+		identityString             = validate.validateIdentity(identityString);
+		boolean generator          = validate.validateGenerator(generatorString);
+		description                = validate.validateDescription(description);
+		
+		Knot knot = new Knot(descriptorString, 
+		mnemonicString, 
+		capsule, 
+		dataRange,
+		identityString, 
+		generator, 
+		description);
+		
+		new AttributeDao().knotAttribute(attribute, knot);
+	}
 }
