@@ -222,7 +222,7 @@ public class AttributeDao {
 		impactList.setViewImpacts(     dbSearch.objectImpacts(attribute, "VIEW"));
 		impactList.setTriggerImpacts(  dbSearch.objectImpacts(attribute, "TRIGGER"));
 		
-		impactList.addAttributeImpact(attribute,          "knot");
+		impactList.addAttributeImpact(attribute,          "Toggle knotted");
 		impactList.addTableImpact(attribute.getTable(),   "Recreate");
 		
 		HashMap<String, String> knotProcedureImpacts = dbSearch.objectImpacts(knot, "PROCEDURE");
@@ -263,7 +263,7 @@ public class AttributeDao {
 		impactList.addKnotImpact(knot,             "create");
 		impactList.addTableImpact(knot.getTable(), "create");
 		
-		return null;
+		return impactList;
 	}
 
 	public Object knotAttribute(Attribute attribute, Knot knot) {

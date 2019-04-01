@@ -22,6 +22,7 @@ public class Functions {
 		registerFunction(new Help());
 		registerFunction(new HistorizeAttribute());
 		registerFunction(new CreateTie());
+		registerFunction(new KnotAttribute());
 	}
 
 	/**

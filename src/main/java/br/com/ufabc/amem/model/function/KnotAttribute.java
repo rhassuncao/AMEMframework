@@ -16,8 +16,8 @@ public class KnotAttribute extends Function{
 
 	public KnotAttribute() {
 		
-		this.name           = "historizeAttribute";
-		this.description    = "Historize an existing non historized anchor attribute";
+		this.name           = "knotAttribute";
+		this.description    = "Knot an existing attribute";
 		this.parameters     = new ArrayList<String>();
 		this.parameters.add("capsule");
 		this.parameters.add("attribute");

@@ -1,10 +1,11 @@
 String line = "createAnchor(Container, CO, TESTE2, number(10), true, container)";
 String line = "createAnchor(Viagem, VI, TESTE2, number(10), true, viagem)";
-String line = "createAttribute( TESTE2, CO_CONTAINER, Sigla, SIG, TESTE2, varchar(10), descricao, null, null, null)";
+String line = "createAttribute(TESTE2, CO_CONTAINER, Sigla, SIG, TESTE2, varchar(10), descricao, null, null, null)";
 String line = "createKnot(Colors, COS, TESTE2, varchar(15), number(5), true, knot)";
 String line = "createAttribute(TESTE2, CO_CONTAINER, Color, COL, TESTE2, varchar(10), descricao, TIMESTAMP(3), TESTE2, COS_COLORS)";
 String line = "createTie(TESTE2, CO_Container, travel, true, TESTE2, VI_Viagem, in, true, TESTE2, link, TIMESTAMP(3))";
 String line = "historizeAttribute(TESTE2, co_sig_container_sigla, TESTE2, timestamp(3), 24/07/1992, dd/MM/yyyy)";
+String line = "knotAttribute(TESTE2, co_sig_container_sigla, TESTE2, Siglas, SGS, TESTE2, varchar(15), number(5), true, knot)";
 			
 drop sequence teste2.CO_CONTAINER_CO_ID_SEQ;
 
